@@ -5,89 +5,96 @@ $username = "root";
 $password = "";
 $dbname = "movieprojectdb";
 
+// Connect to MySQL
 $conn = new mysqli($host, $username, $password);
-
-
-$sql_create_db = "CREATE DATABASE IF NOT EXISTS $dbname";
-if ($conn->query($sql_create_db) === FALSE) {
-    die("Error creating database: " . $conn->error);
-}
-
-if (!$conn->select_db($dbname)) {
-    die("Error selecting database: " . $conn->error);
-}
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "
-    CREATE TABLE Users (
-        userId INT NOT NULL PRIMARY KEY,
-        firstName VARCHAR NOT NULL,
-        middleName VARCHAR,
-        lastName VARCHAR NOT NULL,
-        contactNo VARCHAR NOT NULL,
-        role ENUM NOT NULL
-    );
+// Create the database if it doesn't exist
+$sql_create_db = "CREATE DATABASE IF NOT EXISTS $dbname";
+if ($conn->query($sql_create_db) === FALSE) {
+    die("Error creating database: " . $conn->error);
+}
 
-    CREATE TABLE Movies (
-        movieId INT NOT NULL PRIMARY KEY,
+// Select the database
+if (!$conn->select_db($dbname)) {
+    die("Error selecting database: " . $conn->error);
+}
+
+// Define the table creation queries
+$table_queries = [
+    "CREATE TABLE IF NOT EXISTS Users (
+        userId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        firstName VARCHAR(255) NOT NULL,
+        middleName VARCHAR(255),
+        lastName VARCHAR(255) NOT NULL,
+        contactNo VARCHAR(20) NOT NULL,
+        role ENUM('Admin', 'Editor', 'Viewer') NOT NULL
+    )",
+    
+    "CREATE TABLE IF NOT EXISTS Movies (
+        movieId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         userId INT NOT NULL,
         tmdbId INT,
-        title VARCHAR NOT NULL,
+        title VARCHAR(255) NOT NULL,
         overview TEXT NOT NULL,
         popularity FLOAT,
         releaseDate DATE,
         voteAverage FLOAT,
-        backdropPath VARCHAR,
-        posterPath VARCHAR,
-        dateCreated DATE NOT NULL,
-        dateUpdated DATE,
+        backdropPath VARCHAR(255),
+        posterPath VARCHAR(255),
+        dateCreated DATE NOT NULL DEFAULT CURRENT_DATE,
+        dateUpdated DATE DEFAULT NULL,
         isFeatured BOOLEAN DEFAULT FALSE,
         FOREIGN KEY (userId) REFERENCES Users(userId)
-    );
-
-    CREATE TABLE Cast (
-        castId INT NOT NULL PRIMARY KEY,
+    )",
+    
+    "CREATE TABLE IF NOT EXISTS Cast (
+        castId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         movieId INT NOT NULL,
         userId INT NOT NULL,
-        name VARCHAR NOT NULL,
-        url VARCHAR,
-        characterName VARCHAR,
+        name VARCHAR(255) NOT NULL,
+        url VARCHAR(255),
+        characterName VARCHAR(255),
         FOREIGN KEY (movieId) REFERENCES Movies(movieId),
         FOREIGN KEY (userId) REFERENCES Users(userId)
-    );
-
-    CREATE TABLE photos (
-        photoId INT NOT NULL PRIMARY KEY,
+    )",
+    
+    "CREATE TABLE IF NOT EXISTS photos (
+        photoId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         movieId INT NOT NULL,
         userId INT NOT NULL,
-        url VARCHAR NOT NULL,
+        url VARCHAR(255) NOT NULL,
         description TEXT,
         FOREIGN KEY (movieId) REFERENCES Movies(movieId),
         FOREIGN KEY (userId) REFERENCES Users(userId)
-    );
-
-    CREATE TABLE videos (
-        videoId INT NOT NULL PRIMARY KEY,
+    )",
+    
+    "CREATE TABLE IF NOT EXISTS videos (
+        videoId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         movieId INT NOT NULL,
         userId INT NOT NULL,
-        url VARCHAR,
+        url VARCHAR(255),
         name TEXT,
-        site TEXT,
-        videoKey TEXT,
-        videoType TEXT,
-        official TEXT,
+        site VARCHAR(255),
+        videoKey VARCHAR(255),
+        videoType VARCHAR(50),
+        official BOOLEAN DEFAULT FALSE,
         FOREIGN KEY (movieId) REFERENCES Movies(movieId),
         FOREIGN KEY (userId) REFERENCES Users(userId)
-    );
-)";
+    )"
+];
 
-if ($conn->query($sql) === FALSE) {
-    echo "Error: " . $conn->error;
+// Execute each table creation query
+foreach ($table_queries as $query) {
+    if ($conn->query($query) === FALSE) {
+        echo "Error creating table: " . $conn->error . "<br>";
+    }
 }
-        
+
+// Close the connection
 $conn->close();
 
 ?>
