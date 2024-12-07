@@ -10,12 +10,6 @@ switch($user_link){
     case "/login":
         require("restapi/login.php");
         break;
-    case "/create_movie":
-        require("restapi/create_movie.php");
-        break;
-    case "/edit_movie":
-        require("restapi/edit_movie.php");
-        break;
     default:
         http_response_code(404);
         break;
