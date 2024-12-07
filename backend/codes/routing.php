@@ -10,6 +10,9 @@ switch($user_link){
     case "/login":
         require("restapi/login.php");
         break;
+    case "/register":
+        require("restapi/register.php");
+        break;
     default:
         http_response_code(404);
         break;
