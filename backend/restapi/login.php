@@ -6,7 +6,7 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization, Cookie");
 header("Access-Control-Allow-Credentials: true");
-require("codes/others/connection.php");
+require("codes/connection.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get the JSON data from the request body
