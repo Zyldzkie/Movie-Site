@@ -3,7 +3,7 @@
 .home-page {
     display: flex; /* Sidebar on the left and main content on the right */
     height: 100%; /* Full height for the page */
-    border: 2px solid black;
+    /*border: 2px solid black;*/
   }
   
   .sidebar {
@@ -26,28 +26,28 @@
   
   .bottom-row {
     display: flex;
-    gap: 20px;
+   
     
   }
   
   .featured {
-    flex: 1;
-    border: 2px solid black;
+    flex: 3;
+    /* border: 2px solid black; */
   }
   
   .search {
     flex: 1;
-    border: 2px solid black;
+    /* border: 2px solid black; */
   }
   
   .main-movies {
-    flex: 2; /* Main movies panel takes more space */
-    border: 2px solid black;
+    flex: 3; /* Main movies panel takes more space */
+    /* border: 2px solid black; */
   }
   
   .favorites {
     flex: 1; /* Favorites panel takes equal space */
-    border: 2px solid black;
+    /* border: 2px solid black; */
   }
   
   @media screen and (max-width: 768px) {

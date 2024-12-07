@@ -8,12 +8,18 @@ const FavoritesPanel = ({ favorites = [] }) => {
 
   return (
     <div className="favorites-panel">
-      {favorites.map((movie) => (
-        <div key={movie.id} className="favorite-card">
-          <img src={movie.poster} alt={movie.title} />
-          <h3>{movie.title}</h3>
-        </div>
-      ))}
+      {/* Favorites header */}
+      <h2 className="favorites-header">Favorites</h2>
+
+      {/* List of favorite movies */}
+      <div className="favorites-cards">
+        {favorites.map((movie) => (
+          <div key={movie.id} className="favorite-card">
+            <img src={movie.poster} alt={movie.title} className="favorite-poster" />
+            <h3 className="favorite-title">{movie.title}</h3>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

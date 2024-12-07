@@ -1,11 +1,19 @@
 .featured-movies {
     width: 100%;
-    max-width: 600px;
+    max-width: 900px;
     margin: auto;
-    padding-bottom: 10px;
-    padding-top: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px 62px;
+    background-color: #F8B319;
+    border-radius: 20px;
+    
   }
   
+.featured-movies h1{
+  font-size: 28px;
+}
+
   .carousel-slide {
     text-align: center;
   }
