@@ -1,6 +1,12 @@
 <?php
 
-include 'connection.php';
+$host = "localhost";
+$username = "root";
+$password = "";
+$dbname = "movieprojectdb";
+
+$conn = new mysqli($host, $username, $password);
+
 
 $sql_create_db = "CREATE DATABASE IF NOT EXISTS $dbname";
 if ($conn->query($sql_create_db) === FALSE) {
