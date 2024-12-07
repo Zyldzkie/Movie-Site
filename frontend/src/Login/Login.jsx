@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback } from 'react';
 import './Login.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
 function Login() {
@@ -99,7 +99,7 @@ function Login() {
         </form>
 
         <div className="register-prompt">
-          <p>Don't have an account? <a href="/register" className="register-link">Create one</a></p>
+          <p>Don't have an account? <Link to="/register" className="register-link">Create one</Link></p>
         </div>
       </div>
     </div>
