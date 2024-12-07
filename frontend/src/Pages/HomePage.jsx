@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import SideBar from '../Components/SideBar';
+import SideBar from '../Components/Sidebar';
 import FeaturedMovies from '../Components/FeaturedMovies';
 import MainMoviesPanel from '../Components/MainMoviesPanel';
 import SearchBar from '../Components/SearchBar';

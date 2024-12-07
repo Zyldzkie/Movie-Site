@@ -10,7 +10,6 @@ body {
 
 
 
-<<<<<<< Updated upstream
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -40,8 +39,6 @@ body {
     padding-left: 0;
   }
 }
-=======
 /* Slick carousel styles */
 @import '~slick-carousel/slick/slick.css';
 @import '~slick-carousel/slick/slick-theme.css';
->>>>>>> Stashed changes
