@@ -45,6 +45,7 @@ const HomePage = () => {
 
   // Add to favorites
   const handleAddToFavorites = (movie) => {
+    // Check if movie is already in favorites
     if (!favorites.some((fav) => fav.id === movie.id)) {
       setFavorites([...favorites, movie]);
     }
@@ -78,7 +79,7 @@ const HomePage = () => {
             />
           </div>
           <div className="favorites">
-            <FavoritesPanel movies={favorites} />
+            <FavoritesPanel favorites={favorites} />
           </div>
         </div>
       </div>
