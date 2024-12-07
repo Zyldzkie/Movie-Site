@@ -12,6 +12,11 @@ switch($user_link){
         break;
     case "/register":
         require("restapi/register.php");
+    case "/create_movie":
+        require("restapi/create_movie.php");
+        break;
+    case "/edit_movie":
+        require("restapi/edit_movie.php");
         break;
     default:
         http_response_code(404);
