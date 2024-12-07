@@ -27,10 +27,9 @@ if (!$conn->select_db($dbname)) {
 $table_queries = [
     "CREATE TABLE IF NOT EXISTS Users (
         userId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        firstName VARCHAR(255) NOT NULL,
-        middleName VARCHAR(255),
-        lastName VARCHAR(255) NOT NULL,
-        contactNo VARCHAR(20) NOT NULL,
+        email VARCHAR(255) NOT NULL,
+        password VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL,
         role ENUM('Admin', 'Editor', 'Viewer') NOT NULL
     )",
     
