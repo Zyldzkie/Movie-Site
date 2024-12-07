@@ -1,5 +1,3 @@
 <?php
-
-echo "Test";
-
+    require("routes/routing.php");
 ?>
