@@ -1,0 +1,27 @@
+.featured-movies {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    padding-bottom: 10px;
+    padding-top: 20px;
+  }
+  
+  .carousel-slide {
+    text-align: center;
+  }
+  
+  .carousel-poster {
+    width: 100%;
+    height: auto;
+    max-height: 280px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .carousel-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+  

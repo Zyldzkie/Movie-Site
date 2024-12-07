@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $username = $data->username;
         $password = $data->password;
 
-        //$stmt = $conn->prepare("Select * from users where Username = ?");
+        $stmt = $conn->prepare("Select * from users where Username = ?");
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result(); // Get the result of the query

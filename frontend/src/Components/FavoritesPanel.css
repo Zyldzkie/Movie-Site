@@ -1,0 +1,28 @@
+/* FavoritesPanel.css */
+.favorites-panel {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .favorite-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 10px;
+  }
+  
+  .favorite-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .favorite-card h3 {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
