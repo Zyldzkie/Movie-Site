@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './Login/Login';
 import Sidebar from './Components/Sidebar';
+import Register from './Register/Register';
 import './App.css';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />Y
           {/* Add other protected routes here */}
         </Routes>
       </div>
