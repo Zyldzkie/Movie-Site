@@ -7,9 +7,7 @@ const App = () => {
   return (
     <Router>
       <div className="app">
-        {/* Routes define which component to load based on the URL */}
         <Routes>
-          {/* Default route loads the HomePage */}
           <Route path="/" element={<HomePage />} />
         </Routes>
       </div>
