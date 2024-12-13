@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import SideBar from '../Components/Sidebar';
+import NavBar from '../Components/NavBar';
 import FeaturedMovies from '../Components/FeaturedMovies';
 import MainMoviesPanel from '../Components/MainMoviesPanel';
 import SearchBar from '../Components/SearchBar';
@@ -37,14 +37,15 @@ const HomePage = () => {
   };
 
   // Filter movies based on search term
-  const filteredMovies = movies
+  const filteredMovies = searchTerm
     ? movies.filter((movie) =>
         movie.title.toLowerCase().includes(searchTerm.toLowerCase())
       )
-    : [];
+    : movies;
 
   // Add to favorites
   const handleAddToFavorites = (movie) => {
+    // Check if movie is already in favorites
     if (!favorites.some((fav) => fav.id === movie.id)) {
       setFavorites([...favorites, movie]);
     }
@@ -58,7 +59,7 @@ const HomePage = () => {
   return (
     <div className="home-page">
       <div className="sidebar">
-        <SideBar />
+        <NavBar />
       </div>
       <div className="main-content">
         <div className="top-row">
@@ -78,7 +79,7 @@ const HomePage = () => {
             />
           </div>
           <div className="favorites">
-            <FavoritesPanel movies={favorites} />
+            <FavoritesPanel favorites={favorites} />
           </div>
         </div>
       </div>

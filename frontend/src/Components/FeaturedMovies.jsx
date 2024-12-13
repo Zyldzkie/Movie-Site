@@ -51,6 +51,7 @@ const FeaturedMovies = () => {
 
   return (
     <div className="featured-movies">
+      <h1>Featured Movies</h1>
       <Slider {...settings}>
         {featured.map((movie) => (
           <div key={movie.movieId} className="carousel-slide">
