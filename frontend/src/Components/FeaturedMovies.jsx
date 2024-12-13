@@ -1,8 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import './FeaturedMovies.css';
 
-const FeaturedMovies = ({ featured = [] }) => {
+const FeaturedMovies = () => {
+  const [featured, setFeatured] = useState([]); 
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchFeaturedMovies = async () => {
+      try {
+        const response = await fetch('/featured_movie'); 
+        const data = await response.json();
+
+  
+        if (response.ok) {
+          setFeatured(data); 
+        } else {
+          throw new Error('Failed to fetch featured movies');
+        }
+      } catch (err) {
+        setError(err.message); 
+      } finally {
+        setLoading(false); 
+      }
+    };
+
+    fetchFeaturedMovies();
+  }, []); 
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   // Slick slider settings
   const settings = {
     dots: true,
@@ -19,8 +53,8 @@ const FeaturedMovies = ({ featured = [] }) => {
     <div className="featured-movies">
       <Slider {...settings}>
         {featured.map((movie) => (
-          <div key={movie.id} className="carousel-slide">
-            <img className="carousel-poster" src={movie.poster} alt={movie.title} />
+          <div key={movie.movieId} className="carousel-slide">
+            <img className="carousel-poster" src={movie.posterPath} alt={movie.title} />
             <h3 className="carousel-title">{movie.title}</h3>
           </div>
         ))}

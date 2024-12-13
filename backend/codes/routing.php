@@ -18,6 +18,9 @@ switch($user_link){
     case "/edit_movie":
         require("restapi/edit_movie.php");
         break;
+    case "/featured_movie":
+        require("restapi/featured_movie.php");
+        break;
     default:
         http_response_code(404);
         break;
