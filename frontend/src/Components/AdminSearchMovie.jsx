@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const AdminSearchMovie = () => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [error, setError] = useState(null);
- 
+  const navigate = useNavigate();
 
   const handleSearch = async () => {
     try {
@@ -25,6 +26,10 @@ const AdminSearchMovie = () => {
     }
   };
 
+  const handleCardClick = (tmdbId) => {
+    navigate(`/admin_edit/${tmdbId}`);
+  };
+
   return (
     <div>
       <h1>Admin Search Movie</h1>
@@ -38,11 +43,19 @@ const AdminSearchMovie = () => {
 
       {error && <p>{error}</p>}
 
-      <ul>
+      <div className="movie-list">
         {results.map((movie) => ( 
-          <li key={movie.id}>{movie.original_title}</li> 
+          <div 
+            key={movie.id} 
+            className="movie-card" 
+            onClick={() => handleCardClick(movie.id)}
+          >
+            <h2>{movie.original_title}</h2>
+            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.original_title} />
+            <p>{movie.overview}</p>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
