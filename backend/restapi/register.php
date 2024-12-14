@@ -68,7 +68,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Close statements
         $insert_stmt->close();
-        $u_stmt->close();
         $e_stmt->close();
     } else {
         echo json_encode([
