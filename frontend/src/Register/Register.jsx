@@ -6,6 +6,7 @@ import { useNavigate, Link } from 'react-router-dom';
 function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmpassword, setconfirmPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [middleName, setMiddleName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -80,17 +81,22 @@ function Register() {
     setStatus('loading');
 
     try {
-      const res = await axios.post('/admin/register', data);
-      localStorage.setItem('accessToken', 'true');
-      localStorage.setItem('userId', res.data.u_id);
-      navigate('/main/movies');
-    } catch (e) {
-      const errorMessage = e.response?.data?.message || 'Registration failed';
-      alert(errorMessage);
-    } finally {
-      setStatus('idle');
-    }
-  };
+        // Send POST request to PHP
+        const response = await axios.post('http://localhost/register', {
+          name: firstName,
+          email: email,
+          password: password,
+          conf_pass: confirmpassword
+        });
+  
+        // Handle response from PHP
+        console.log(response.data);  // Assuming the PHP response contains a 'message' field
+  
+      } catch (error) {
+        console.error('Error sending request:', error);
+        setMessage('An error occurred while sending the request.');
+      }
+    };
 
   return (
     <div className="register-container">
