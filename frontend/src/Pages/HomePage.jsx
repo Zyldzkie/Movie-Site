@@ -26,6 +26,7 @@ const HomePage = () => {
       poster: 'https://via.placeholder.com/150',
       description: 'A gritty and realistic take on Batman.',
     },
+    
   ]);
 
   const [favorites, setFavorites] = useState([]);
@@ -63,11 +64,11 @@ const HomePage = () => {
       </div>
       <div className="main-content">
         <div className="top-row">
+        <div className="search">
+            <SearchBar onSearch={handleSearch} />
+          </div>
           <div className="featured">
             <FeaturedMovies featured={filteredMovies.slice(0, 5)} />
-          </div>
-          <div className="search">
-            <SearchBar onSearch={handleSearch} />
           </div>
         </div>
         <div className="bottom-row">

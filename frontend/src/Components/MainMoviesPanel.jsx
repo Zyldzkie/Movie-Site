@@ -14,7 +14,7 @@ const MainMoviesPanel = ({ movies, onWatch, onAddToFavorites }) => {
             <img
               src={movie.poster}
               alt={movie.title}
-              className="movie-poster"
+              className="movie-poster1"
             />
             <div className="movie-details">
               <h3 className="movie-title">{movie.title}</h3>

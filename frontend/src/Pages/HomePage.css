@@ -19,7 +19,7 @@
   }
   
   .top-row {
-    display: flex;
+    
     justify-content: space-between; /* Space between featured movies and search bar */
     
   }
@@ -30,15 +30,7 @@
     
   }
   
-  .featured {
-    flex: 3;
-    /* border: 2px solid black; */
-  }
   
-  .search {
-    flex: 1;
-    /* border: 2px solid black; */
-  }
   
   .main-movies {
     flex: 3; /* Main movies panel takes more space */
