@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './AdminSearchMovie.css';
 
 const AdminSearchMovie = () => {
   const [query, setQuery] = useState('');
@@ -51,7 +52,7 @@ const AdminSearchMovie = () => {
             onClick={() => handleCardClick(movie.id)}
           >
             <h2>{movie.original_title}</h2>
-            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.original_title} />
+            <img className="movie-poster" src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.original_title} />
             <p>{movie.overview}</p>
           </div>
         ))}
