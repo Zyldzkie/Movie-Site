@@ -11,6 +11,7 @@ function Register() {
   const [middleName, setMiddleName] = useState('');
   const [lastName, setLastName] = useState('');
   const [contactNo, setContactNo] = useState('');
+  const [message, setMessage] = useState('');
 
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -199,7 +200,7 @@ function Register() {
         </form>
 
         <div className="login-prompt">
-          <p>Already have an account? <Link to="/" className="login-link">Sign In</Link></p>
+          <p>Already have an account? <Link to="/login" className="login-link">Sign In</Link></p>
         </div>
       </div>
     </div>
