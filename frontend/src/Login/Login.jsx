@@ -3,6 +3,8 @@ import './Login.css';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
+axios.defaults.withCredentials = true;
+
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,16 +22,15 @@ function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const data = { username: email, password };
+    const data = { email: email, password: password };
     setStatus('loading');
 
     try {
-      const response = await axios.post('/restapi/login.php', data);
+      const response = await axios.post('http://localhost/login', data);
       
       if (response.data.status === 'success') {
-        localStorage.setItem('accessToken', 'true');
-        localStorage.setItem('userId', response.data.u_id);
-        navigate('/main/movies');
+        navigate('/');
+        console.log(response.data);
       } else {
         alert(response.data.message);
       }
