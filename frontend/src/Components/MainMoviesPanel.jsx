@@ -1,40 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./MainMoviesPanel.css";
+import FavoritesPanel from './FavoritesPanel';
+
 
 axios.defaults.withCredentials = true;
 
 const MainMoviesPanel = ({ movies, onWatch, onAddToFavorites }) => {
     const [error, setError] = useState(null);
     const [results, setResults] = useState([]);
+    const [favorites, setFavorites] = useState([]);
     
     const searchMovie = async () => {
-        try {
-          const response = await axios.get("http://localhost/get_movies");
-          //console.log('API Response:', response.data); // Log API response
-          if (response.data) {
-            setResults(response.data);
-          } else {
-            setResults([]);
-            setError('No results found.');
-          }
-          setError(null);
-        } catch (err) {
-          setError('Error fetching data. Please try again.');
-          console.error(err);
+      try {
+        const response = await axios.get('http://localhost/get_movies');
+        if (response.data) {
+          setResults(response.data);
+        } else {
+          setResults([]);
+          setError('No results found.');
         }
-      };
-      
-
-      useEffect(() => {
-        searchMovie();
-      }, []); 
-
-      useEffect(() => {
-        if (results.length > 0) {
-          console.log('Results:', results);
-        }
-      }, [results]);
+        setError(null);
+      } catch (err) {
+        setError('Error fetching data. Please try again.');
+        console.error(err);
+      }
+    };
+  
+    const handleAddToFavorites = (movie) => {
+      setFavorites((prevFavorites) => [
+        ...prevFavorites,
+        { id: movie.movieId, title: movie.title, poster: `https://image.tmdb.org/t/p/w500${movie.posterPath}` }
+      ]);
+    };
+  
+    useEffect(() => {
+      searchMovie();
+    }, []);
+  
+    useEffect(() => {
+      if (results.length > 0) {
+        console.log('Results:', results);
+      }
+    }, [results]);
 
   return (
     <div className="main-movies-panel">
@@ -73,6 +81,8 @@ const MainMoviesPanel = ({ movies, onWatch, onAddToFavorites }) => {
                 <p>No movies available.</p>
             )}
         </div>
+        {/* Favorites Panel */}
+      <FavoritesPanel favorites={favorites} />
     </div>
   );
 };

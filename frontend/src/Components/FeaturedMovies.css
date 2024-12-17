@@ -18,38 +18,47 @@
   width: 100%;
 }
 
-.movies-grid {
+.featured-movies-grid {
   display: flex;
   gap: 20px;
   justify-content: center;
-  align-items: center;
+  align-items: stretch; /* Ensures all cards are the same height */
 }
 
-.movie-card {
+.featured-movie-card {
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
-  max-width: 100%;
+  max-width: 200px; /* Adjust as necessary */
+  height: 450px; /* Ensure consistent height for all cards */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Align content evenly */
 }
 
-.movie-card:hover {
+.featured-movie-card:hover {
   transform: scale(1.05);
   transition: transform 0.3s ease;
 }
 
-.movie-posterr {
+.featured-movie-posterr {
   width: 100%;
-  height: 350px;
-  object-fit: cover;
+  height: 300px; /* Set a fixed height for the poster */
+  object-fit: cover; /* Maintain aspect ratio and fill the area */
   border-bottom: 2px solid #fe689d;
 }
 
-.movie-title {
+.featured-movie-title {
   font-size: 16px;
   padding: 10px;
   color: #333;
+  flex-grow: 1; /* Allows the title area to fill space if needed */
+  display: flex;
+  align-items: center; /* Center align text vertically */
+  justify-content: center; /* Center align text horizontally */
+  text-align: center; /* Ensure multi-line titles look good */
 }
 
 .loading,
