@@ -122,6 +122,18 @@ function Register() {
 
           <div className="form-group">
             <input
+              ref={fNameRef}
+              type="text"
+              value={firstName}
+              onChange={(e) => handleOnChange(e, 'firstName')}
+              placeholder="Name"
+              required
+              className="form-input"s
+            />
+          </div>
+
+          <div className="form-group">
+            <input
               ref={passwordRef}
               type={isShowPassword ? 'text' : 'password'}
               value={password}
@@ -137,53 +149,6 @@ function Register() {
             >
               {isShowPassword ? '👁️' : '👁️‍🗨️'}
             </button>
-          </div>
-
-          <div className="form-group">
-            <input
-              ref={fNameRef}
-              type="text"
-              value={firstName}
-              onChange={(e) => handleOnChange(e, 'firstName')}
-              placeholder="First Name"
-              required
-              className="form-input"
-            />
-          </div>
-
-          <div className="form-group">
-            <input
-              ref={mNameRef}
-              type="text"
-              value={middleName}
-              onChange={(e) => handleOnChange(e, 'middleName')}
-              placeholder="Middle Name (Optional)"
-              className="form-input"
-            />
-          </div>
-
-          <div className="form-group">
-            <input
-              ref={lNameRef}
-              type="text"
-              value={lastName}
-              onChange={(e) => handleOnChange(e, 'lastName')}
-              placeholder="Last Name"
-              required
-              className="form-input"
-            />
-          </div>
-
-          <div className="form-group">
-            <input
-              ref={CNoRef}
-              type="text"
-              value={contactNo}
-              onChange={(e) => handleOnChange(e, 'contactNo')}
-              placeholder="Contact Number"
-              required
-              className="form-input"
-            />
           </div>
 
           <button
