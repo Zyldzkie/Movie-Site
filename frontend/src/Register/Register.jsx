@@ -50,6 +50,9 @@ function Register() {
       case 'contactNo':
         setContactNo(value);
         break;
+      case 'confirmpassword':
+        setconfirmPassword(value);
+        break;
       default:
         break;
     }
@@ -92,6 +95,7 @@ function Register() {
   
         // Handle response from PHP
         console.log(response.data);  // Assuming the PHP response contains a 'message' field
+        navigate("/")
   
       } catch (error) {
         console.error('Error sending request:', error);
@@ -149,6 +153,18 @@ function Register() {
             >
               {isShowPassword ? '👁️' : '👁️‍🗨️'}
             </button>
+          </div>
+
+          <div className="form-group">
+            <input
+              ref={passwordRef}
+              type={isShowPassword ? 'text' : 'password'}
+              value={confirmpassword}
+              onChange={(e) => handleOnChange(e, 'confirmpassword')}
+              placeholder="Confirm Password"
+              required
+              className="form-input"
+            />
           </div>
 
           <button
