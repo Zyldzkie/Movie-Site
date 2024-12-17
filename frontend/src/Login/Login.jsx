@@ -29,7 +29,7 @@ function Login() {
       const response = await axios.post('http://localhost/login', data);
       
       if (response.data.status === 'success') {
-        navigate('/');
+        navigate("/home");
         console.log(response.data);
       } else {
         alert(response.data.message);
