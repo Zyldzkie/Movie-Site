@@ -12,8 +12,8 @@ const App = () => {
     <Router>
       <div className="app">
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/admin_search" element={<AdminSearchMovie />} />
           <Route path="/admin_edit/:tmdbId" element={<AdminEditMovie />} />
