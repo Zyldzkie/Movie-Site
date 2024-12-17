@@ -35,17 +35,20 @@ const AdminSearchMovie = () => {
   };
 
   return (
-    <div>
-      <h1>Admin Search Movie</h1>
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search for a movie..."
-      />
-      <button onClick={handleSearch}>Search</button>
+    <div className="container">
+      <div className="search-card">
+        <h1>Admin Search Movie</h1>
+        <input
+        className='input'
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search for a movie..."
+        />
+        <button className="search-button" onClick={handleSearch}>Search</button>
 
-      {error && <p>{error}</p>}
+        {error && <p>{error}</p>}
+      </div>
 
       <div className="movie-list">
         {results.map((movie) => ( 
