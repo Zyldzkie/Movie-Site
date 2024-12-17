@@ -4,6 +4,8 @@ import HomePage from './Pages/HomePage';
 import AdminSearchMovie from './Components/AdminSearchMovie';
 import AdminEditMovie from './Components/AdminEditMovie';
 import './App.css';
+import Login from './Login/Login';
+import Register from './Register/Register';
 
 const App = () => {
   return (
@@ -11,6 +13,8 @@ const App = () => {
       <div className="app">
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/admin_search" element={<AdminSearchMovie />} />
           <Route path="/admin_edit/:tmdbId" element={<AdminEditMovie />} />
         </Routes>
