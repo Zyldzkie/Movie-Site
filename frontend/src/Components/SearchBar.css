@@ -7,7 +7,7 @@
   align-items:start;
   margin: 20px;
   border-radius: 10px;
-  background-color: #161616; /* Dark background color */
+  background-color: #FFB2CF; /* Dark background color */
   padding: 10px;
   height: 87%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -37,23 +37,23 @@
 }
 
 .search-bar input:focus {
-  border-color: #F8B319; /* Highlight border on focus */
+  border-color: #8b0b4f; /* Highlight border on focus */
 }
 
 /* Search button styles */
 .search-btn {
-  background-color: #F8B319;
+  background-color: #1a1a1d;
   color: white;
   font-size: 1rem;
   padding: 10px 15px;
-  border: 2px solid #dc9b10;
+  border: 2px solid #1a1a1d;
   
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .search-btn:hover {
-  background-color: #dc9b10; /* Darker blue on hover */
+  background-color: #313134; /* Darker blue on hover */
 }
 
 /* Optional: Focus state for the button */
