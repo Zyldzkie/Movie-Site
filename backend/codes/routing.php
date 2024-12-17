@@ -19,6 +19,9 @@ switch($user_link){
     case "/get_movies":
         require("restapi/get_movies.php");
         break;
+    case "/get_featured":
+        require("restapi/get_featured.php");
+        break;
     case "/admin_edit":
         require("restapi/admin_edit.php");
         break;
