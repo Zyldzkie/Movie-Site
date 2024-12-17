@@ -43,7 +43,7 @@ const FeaturedMovies = () => {
           <div key={movie.movieId} className="movie-card">
             <img
               className="movie-posterr"
-              src={`https://image.tmdb.org/t/p/w500${movie.posterPath || 'default-poster.jpg'}`}
+              src={`${movie.posterPath || 'default-poster.jpg'}`}
               alt={movie.title}
             />
             <h3 className="movie-title">{movie.title}</h3>
