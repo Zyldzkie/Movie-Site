@@ -12,7 +12,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+  background: linear-gradient(135deg, #ee78bb, #e656a3, #b71f64);
 }
 
 .login-card {
@@ -21,7 +21,7 @@ body {
   padding: 30px;
   width: 100%;
   max-width: 360px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .login-header {
@@ -30,7 +30,7 @@ body {
 }
 
 .login-header h1 {
-  color: #1a2a6c;
+  color: #e656a3;
   font-size: 24px;
   margin-bottom: 5px;
   font-weight: 600;
@@ -62,7 +62,7 @@ body {
 }
 
 .form-input:focus {
-  border-color: #1a2a6c;
+  border-color: #e656a3;
   outline: none;
   box-shadow: 0 0 0 2px rgba(26, 42, 108, 0.1);
 }
@@ -87,18 +87,18 @@ body {
 }
 
 .forgot-link {
-  color: #1a2a6c;
+  color: #e656a3;
   text-decoration: none;
   font-size: 12px;
   transition: color 0.2s ease;
 }
 
 .forgot-link:hover {
-  color: #b21f1f;
+  color: #b71f64;
 }
 
 .login-button {
-  background: linear-gradient(135deg, #1a2a6c, #b21f1f);
+  background: #e656a3;
   color: white;
   padding: 12px;
   border: none;
@@ -145,14 +145,14 @@ body {
 }
 
 .register-link {
-  color: #b21f1f;
+  color: #e656a3;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s ease;
 }
 
 .register-link:hover {
-  color: #1a2a6c;
+  color: #b71f64;
 }
 
 @media (max-width: 480px) {
