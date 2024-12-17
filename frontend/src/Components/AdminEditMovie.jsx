@@ -31,16 +31,27 @@ const AdminEditMovie = () => {
   }, [tmdbId]);
 
   const handleAddMovie = async () => {
-
-    // Call UserId from cookies
-    // MovieId, photoId, videoId, castId is already auto generated
-    // Is Featured is already false by default
-    // tmbd_id is in the params
-    // Set the creation date field to datetime now as well as the updated date to now
-
-    // Admin add here php justin
-
     console.log(movieDetails);
+    console.log("cast", movieDetails.cast);
+
+    const data = {
+        id: movieDetails.id, 
+        title: movieDetails.title, 
+        overview: movieDetails.overview, 
+        popularity: movieDetails.popularity, 
+        releaseDate: movieDetails.release_date, 
+        voteAverage: movieDetails.vote_average,
+        backdropPath: movieDetails.backdrop_path,
+        posterPath: movieDetails.poster_path,
+        cast: movieDetails.cast
+    };
+
+    try {
+        const response = await axios.post("http://localhost/add_movie", data);
+        console.log(response.data);
+    } catch (err) {
+        console.error(err);
+    }
   };
 
   const handleAddCastMember = () => {
