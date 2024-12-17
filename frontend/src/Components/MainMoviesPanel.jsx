@@ -7,6 +7,7 @@ axios.defaults.withCredentials = true;
 const MainMoviesPanel = ({ movies, onWatch, onAddToFavorites }) => {
     const [error, setError] = useState(null);
     const [results, setResults] = useState([]);
+    
     const searchMovie = async () => {
         try {
           const response = await axios.get("http://localhost/get_movies");
