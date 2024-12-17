@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import './AdminEditMovie.css';
 
 const AdminEditMovie = () => {
   const { tmdbId } = useParams();
@@ -178,9 +179,6 @@ const AdminEditMovie = () => {
       </div>
 
       <button onClick={handleAddMovie}>Add Movie</button>
-    </div>
-  
-
     </div>
   );
 };
