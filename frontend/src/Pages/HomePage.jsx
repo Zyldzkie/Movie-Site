@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NavBar from '../Components/NavBar';
 import FeaturedMovies from '../Components/FeaturedMovies';
 import MainMoviesPanel from '../Components/MainMoviesPanel';
 import SearchBar from '../Components/SearchBar';
 import FavoritesPanel from '../Components/FavoritesPanel';
+import axios from 'axios';
 import './HomePage.css';
+
+axios.defaults.withCredentials = true;
 
 const HomePage = () => {
   const [movies, setMovies] = useState([
@@ -31,6 +34,20 @@ const HomePage = () => {
 
   const [favorites, setFavorites] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+
+  const getUser = async () => {
+    try {
+      const response = await axios.get("http://localhost/get_user");
+      console.log('User:', response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  
+
+  useEffect(() => {
+    getUser();
+  }, []); 
 
   // Handle search input
   const handleSearch = (term) => {

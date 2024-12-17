@@ -25,6 +25,9 @@ switch($user_link){
     case "/admin_edit":
         require("restapi/admin_edit.php");
         break;
+    case "/get_user":
+        require("restapi/get_user.php");
+        break;
     default:
         http_response_code(404);
         break;

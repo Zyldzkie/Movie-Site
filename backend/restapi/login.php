@@ -26,9 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user = $result->fetch_assoc();
             if($user["password"] == $password){
 
-                // $_SESSION["USER_ID"] = $user["UserID"];
-                // $uid = $_SESSION["USER_ID"];
-                echo json_encode(["status" => "success", "message" => "Data received", "email" => $email, "pass" => $password]);
+                $_SESSION["USER_ID"] = $user["userId"];
+                $uid = $_SESSION["USER_ID"];
+                echo json_encode(["status" => "success", "message" => "Data received", "email" => $email, "pass" => $password, 'ID' => $uid]);
 
             } else {
 
