@@ -38,15 +38,15 @@ const FeaturedMovies = () => {
   return (
     <div className="featured-movies">
       <h1>Featured Movies</h1>
-      <div className="movies-grid">
+      <div className="featured-movies-grid">
         {featured.slice(0, 6).map((movie) => (
-          <div key={movie.movieId} className="movie-card">
-            <img
-              className="movie-posterr"
+          <div key={movie.movieId} className="featured-movie-card">
+            <img 
+              className="featured-movie-posterr"
               src={`${movie.posterPath || 'default-poster.jpg'}`}
               alt={movie.title}
             />
-            <h3 className="movie-title">{movie.title}</h3>
+            <h3 className="featured-movie-title">{movie.title}</h3>
           </div>
         ))}
       </div>

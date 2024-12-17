@@ -180,6 +180,8 @@ const AdminEditMovie = () => {
       <button onClick={handleAddMovie}>Add Movie</button>
     </div>
   
+
+    </div>
   );
 };
 

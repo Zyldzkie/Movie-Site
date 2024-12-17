@@ -28,6 +28,9 @@ switch($user_link){
     case "/get_user":
         require("restapi/get_user.php");
         break;
+    case "/search_movie":
+        require("restapi/search_movie.php");
+        break;
     default:
         http_response_code(404);
         break;
