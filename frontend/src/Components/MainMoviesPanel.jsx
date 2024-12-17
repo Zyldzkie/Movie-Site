@@ -47,7 +47,7 @@ const MainMoviesPanel = ({ movies, onWatch, onAddToFavorites }) => {
                 results.map((movie) => (
                     <div key={movie.movieId} className="movie-card">
                         <img
-                            src={`https://image.tmdb.org/t/p/w500${movie.posterPath || 'default-poster.jpg'}`}
+                            src={`${movie.posterPath || 'default-poster.jpg'}`}
                             alt={movie.title}
                             className="movie-poster1"
                         />
