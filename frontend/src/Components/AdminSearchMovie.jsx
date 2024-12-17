@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './AdminSearchMovie.css';
 
+axios.defaults.withCredentials = true;
+
 const AdminSearchMovie = () => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
@@ -11,6 +13,7 @@ const AdminSearchMovie = () => {
 
   const handleSearch = async () => {
     try {
+    
       const response = await axios.get(`http://localhost/admin_search?query=${query}`);
       
       console.log(response.data.results[0].original_title); 
