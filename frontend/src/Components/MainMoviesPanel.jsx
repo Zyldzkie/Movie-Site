@@ -3,7 +3,7 @@ import "./MainMoviesPanel.css";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const MainMoviesPanel = ({ movies, onWatch, onDeleteMovie, onFavoriteUpdate, globalFavorites, setGlobalFavorites }) => {
+const MainMoviesPanel = ({ movies, onDeleteMovie, onFavoriteUpdate, globalFavorites, setGlobalFavorites }) => {
     const navigate = useNavigate();
     const [userId, setUserId] = useState(null);
     const [expandedMovies, setExpandedMovies] = useState({});
@@ -21,7 +21,8 @@ const MainMoviesPanel = ({ movies, onWatch, onDeleteMovie, onFavoriteUpdate, glo
         fetchUserData();
     }, []);
 
-    const handleFavoriteToggle = async (movie) => {
+    const handleFavoriteToggle = async (e, movie) => {
+        e.stopPropagation(); // Prevent card click when toggling favorite
         try {
             const isFavorited = globalFavorites.some(fav => fav.movieId === movie.movieId);
             
@@ -48,7 +49,17 @@ const MainMoviesPanel = ({ movies, onWatch, onDeleteMovie, onFavoriteUpdate, glo
         navigate("/admin_search");
     };
 
-    const toggleDescription = (movieId) => {
+    const handleDeleteMovie = (e, movieId) => {
+        e.stopPropagation(); // Prevent card click when deleting
+        onDeleteMovie(movieId);
+    };
+
+    const handleCardClick = (movieId) => {
+        navigate(`/view/${movieId}`);
+    };
+
+    const toggleDescription = (e, movieId) => {
+        e.stopPropagation();
         setExpandedMovies(prev => ({
             ...prev,
             [movieId]: !prev[movieId]
@@ -72,7 +83,7 @@ const MainMoviesPanel = ({ movies, onWatch, onDeleteMovie, onFavoriteUpdate, glo
                             : movie.overview;
 
                         return (
-                            <div key={movie.movieId} className={`movie-card ${isExpanded ? 'expanded' : ''}`}>
+                            <div key={movie.movieId} className={`movie-card ${isExpanded ? 'expanded' : ''}`} onClick={() => handleCardClick(movie.movieId)}>
                                 <img
                                     src={`${movie.posterPath || 'default-poster.jpg'}`}
                                     alt={movie.title}
@@ -85,27 +96,21 @@ const MainMoviesPanel = ({ movies, onWatch, onDeleteMovie, onFavoriteUpdate, glo
                                         {movie.overview.length > 100 && (
                                             <span
                                                 className="see-more"
-                                                onClick={() => toggleDescription(movie.movieId)}
+                                                onClick={(e) => toggleDescription(e, movie.movieId)}
                                             >
                                                 {isExpanded ? " See less" : " See more"}
                                             </span>
                                         )}
                                     </p>
                                     <button
-                                        className="watch-button"
-                                        onClick={() => onWatch(movie.movieId)}
-                                    >
-                                        Watch
-                                    </button>
-                                    <button
                                         className={`favorite-button ${isFavorited ? 'favorited' : ''}`}
-                                        onClick={() => handleFavoriteToggle(movie)}
+                                        onClick={(e) => handleFavoriteToggle(e, movie)}
                                     >
                                         {isFavorited ? 'Remove from Favorites' : 'Add to Favorites'}
                                     </button>
                                     <button
                                         className="watch-button"
-                                        onClick={() => onDeleteMovie(movie.movieId)}
+                                        onClick={(e) => handleDeleteMovie(e, movie.movieId)}
                                     >
                                         Delete
                                     </button>

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './FavoritesPanel.css';
 
 const FavoritesPanel = ({ globalFavorites, setGlobalFavorites }) => {
   const [userId, setUserId] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserAndFavorites = async () => {
@@ -21,7 +23,8 @@ const FavoritesPanel = ({ globalFavorites, setGlobalFavorites }) => {
     fetchUserAndFavorites();
   }, [setGlobalFavorites]);
 
-  const handleRemoveFavorite = async (movieId) => {
+  const handleRemoveFavorite = async (e, movieId) => {
+    e.stopPropagation();
     try {
       await axios.delete(`http://localhost/remove_favorite?movieId=${movieId}&userId=${userId}`);
       const newFavorites = globalFavorites.filter(movie => movie.movieId !== movieId);
@@ -29,6 +32,10 @@ const FavoritesPanel = ({ globalFavorites, setGlobalFavorites }) => {
     } catch (err) {
       console.error('Error removing favorite:', err);
     }
+  };
+
+  const handleCardClick = (movieId) => {
+    navigate(`/view/${movieId}`);
   };
 
   if (globalFavorites.length === 0) {
@@ -40,7 +47,12 @@ const FavoritesPanel = ({ globalFavorites, setGlobalFavorites }) => {
       <h2 className="favorites-header">Favorites</h2>
       <div className="favorites-cards">
         {globalFavorites.map((movie) => (
-          <div key={movie.movieId} className="favorite-card">
+          <div 
+            key={movie.movieId} 
+            className="favorite-card"
+            onClick={() => handleCardClick(movie.movieId)}
+            style={{ cursor: 'pointer' }}
+          >
             <img 
               src={movie.posterPath || 'default-poster.jpg'} 
               alt={movie.title} 
@@ -49,7 +61,7 @@ const FavoritesPanel = ({ globalFavorites, setGlobalFavorites }) => {
             <h3 className="favorite-title">{movie.title}</h3>
             <button
               className="remove-favorite"
-              onClick={() => handleRemoveFavorite(movie.movieId)}
+              onClick={(e) => handleRemoveFavorite(e, movie.movieId)}
             >
               Remove
             </button>
