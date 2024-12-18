@@ -37,7 +37,7 @@ const FeaturedMovies = () => {
 
   return (
     <div className="featured-movies">
-      <h1>Featured Movies</h1>
+      <h1 className='featHeader'>Featured Movies</h1>
       {loading ? ( // Show a loading message
         <p>Loading featured movies...</p>
       ) : error ? ( // Show an error message if there is one

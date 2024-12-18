@@ -13,9 +13,9 @@ const MainMoviesPanel = ({ movies, onWatch, onAddToFavorites, onDeleteMovie }) =
   return (
     <div className="main-movies-panel">
       {/* Header Section */}
-      <div>
+      <div className='head'>
         <h2 className="movies-header">Movies</h2>
-        <button onClick={handleAddMovie}>Add Movie</button>
+        <button className='addMovieBtn' onClick={handleAddMovie}>Add Movie</button>
       </div>
 
       {/* Movie Cards */}
