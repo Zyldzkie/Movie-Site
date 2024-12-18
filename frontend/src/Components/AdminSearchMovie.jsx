@@ -57,8 +57,8 @@ const AdminSearchMovie = () => {
             className="movie-card" 
             onClick={() => handleCardClick(movie.id)}
           >
-            <h2>{movie.original_title}</h2>
-            <img className="movie-poster" src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt={movie.original_title} />
+            <h2>{movie.title}</h2>
+            <img className="movie-poster" src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt={movie.title} />
             <p>{movie.overview}</p>
           </div>
         ))}
