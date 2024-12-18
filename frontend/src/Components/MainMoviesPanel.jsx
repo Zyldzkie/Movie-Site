@@ -71,9 +71,9 @@ const MainMoviesPanel = ({ movies, onWatch, onAddToFavorites }) => {
   return (
     <div className="main-movies-panel">
       {/* Header Section */}
-      <div>
+      <div className='head'>
         <h2 className="movies-header">Movies</h2>
-        <button onClick={handleAddMovie}>Add Movie</button>
+        <button className='addMovieBtn' onClick={handleAddMovie}>Add Movie</button>
       </div>
       
 
@@ -116,7 +116,7 @@ const MainMoviesPanel = ({ movies, onWatch, onAddToFavorites }) => {
             )}
         </div>
         {/* Favorites Panel */}
-      <FavoritesPanel favorites={favorites} />
+      {/* <FavoritesPanel favorites={favorites} /> */}
     </div>
   );
 };

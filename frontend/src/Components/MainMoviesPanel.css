@@ -48,7 +48,33 @@
     line-height: 1.5;
     margin: 0;
   }
-  
+
+.head{
+  display: flex;
+  border-bottom: 2px solid #FFB2CF;
+  padding-bottom: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+  .addMovieBtn{
+    background-color: #FFB2CF;
+    transition: background-color 0.3s ease;
+    display: flex;
+    flex: 1;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 4px;
+    height: 100%;
+    text-align: center;
+    align-self: center;
+    justify-content: center;
+   
+  }
+  .addMovieBtn:hover {
+    background-color: #fe689d;
+  }
   /* Watch button styling */
   .watch-button {
     background-color: #FFB2CF;
@@ -76,9 +102,9 @@
   font-weight: bold;
   margin-bottom: 20px;
   color: #fff;
-  border-bottom: 2px solid #FFB2CF;
-  padding-bottom: 10px;
-  width: 97%;
+  
+  display: flex;
+  flex: 4;
   
 }
 
@@ -98,6 +124,7 @@
   justify-content: center; /* Center rows horizontally */
   align-items: start; /* Align cards to the top */
   padding: 20px;
+ 
 }
 
 /* Individual movie card styling */
@@ -108,13 +135,15 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  height: 550px; /* Fixed height for uniformity */
+  height: 610px; /* Fixed height for uniformity */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 20px;
+  
 }
 
 /* Hover effect for movie cards */
 .movie-card:hover {
-  transform: scale(1.02);
+  transform: scale(1.01);
 }
 
 /* Styling for the movie poster */
