@@ -4,7 +4,7 @@
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
     padding: 20px;
-    background-color: #FFB2CF;
+    background-color: #282828;
     margin: 20px 20px;
     border-radius: 20px;
     
@@ -76,7 +76,7 @@
   font-weight: bold;
   margin-bottom: 20px;
   color: #fff;
-  border-bottom: 2px solid #fff;
+  border-bottom: 2px solid #FFB2CF;
   padding-bottom: 10px;
   width: 97%;
   
@@ -146,13 +146,3 @@
 
 
 
-
-@media screen and (max-width: 768px) {
-  .movie-card {
-    width: 100%; /* Full width for smaller screens */
-  }
-}
-
-.favorite-button{
-  background-color: #F8B319;
-}

@@ -4,6 +4,7 @@ import FeaturedMovies from '../Components/FeaturedMovies';
 import MainMoviesPanel from '../Components/MainMoviesPanel';
 import SearchBar from '../Components/SearchBar';
 import FavoritesPanel from '../Components/FavoritesPanel';
+import Account from '../Components/Account';
 import axios from 'axios';
 import './HomePage.css';
 
@@ -81,13 +82,17 @@ const HomePage = () => {
       </div>
       <div className="main-content">
         <div className="top-row">
-        <div className="search">
+          <div className="account">
+            <Account />
+          </div>
+          <div className="search">
             <SearchBar onSearch={handleSearch} />
           </div>
-          <div className="featured">
+          
+        </div>
+        <div className="featured">
             <FeaturedMovies featured={filteredMovies.slice(0, 5)} />
           </div>
-        </div>
         <div className="bottom-row">
           <div className="main-movies">
             <MainMoviesPanel
