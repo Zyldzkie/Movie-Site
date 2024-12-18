@@ -34,6 +34,9 @@ switch($user_link){
     case "/add_movie":
         require("restapi/add_movie.php");
         break;
+    case "/delete_movie":
+        require("restapi/delete_movie.php");
+        break;
     default:
         http_response_code(404);
         break;
