@@ -22,8 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $popularity = $data->popularity;
         $releaseDate = $data->releaseDate;
         $voteAverage = $data->voteAverage;
-        $backdropPath = "https://image.tmdb.org/t/p/original" . $data->backdropPath;
-        $posterPath = "https://image.tmdb.org/t/p/original" . $data->posterPath;
+        $backdropPath = $data->backdropPath;
+        $posterPath = $data->posterPath;
         $isFeatured = $data->isFeatured;
 
         //ADD MOVIES
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $videos = $data->videos;
             foreach ($videos as $video) {
 
-                $url = "https://www.youtube.com/watch?v=" . $video->key;
+                $url = $video->key;
                 $name = $video->name;
                 $site = $video->site;
                 $videoKey = $video->key;
@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $photos = $data->photos;
             foreach ($photos as $photo) {
 
-                $url = "https://image.tmdb.org/t/p/original" . $photo->file_path;
+                $url = $photo->file_path;
                 $description = "photo";
 
                 $stmt = $conn->prepare("INSERT INTO photos (movieId, userId, url, description) VALUES (?, ?, ?, ?)");

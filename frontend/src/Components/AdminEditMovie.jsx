@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "./AdminEditMovie.css";
+import { useNavigate, Link } from 'react-router-dom';
 
 const AdminEditMovie = () => {
   const { tmdbId } = useParams();
+  const navigate = useNavigate();
   const [movieDetails, setMovieDetails] = useState({
     title: "",
     overview: "",
@@ -40,7 +42,41 @@ const AdminEditMovie = () => {
         const response = await axios.get(
           `http://localhost/admin_edit?tmbd_id=${tmdbId}`
         );
-        setMovieDetails(response.data);
+
+        const data = response.data;
+
+        const processedData = {
+          ...data,
+          poster_path: data.poster_path
+            ? `https://image.tmdb.org/t/p/original${data.poster_path}`
+            : null,
+          backdrop_path: data.backdrop_path
+            ? `https://image.tmdb.org/t/p/original${data.backdrop_path}`
+            : null,
+          cast: data.cast.slice(0, 10).map((member) => ({ // Limit to 10
+            ...member,
+            profile_path: member.profile_path
+              ? `https://image.tmdb.org/t/p/original${member.profile_path}`
+              : null,
+          })),
+          posters: data.posters.slice(0, 10).map((poster) => ({ // Limit to 10
+            ...poster,
+            file_path: poster.file_path
+              ? `https://image.tmdb.org/t/p/original${poster.file_path}`
+              : null,
+          })),
+          results: data.results.slice(0, 10).map((result) => ({ // Limit to 10
+            ...result,
+            key: result.key
+              ? `https://www.youtube.com/embed/${result.key}`
+              : null,
+          })),
+        };
+        
+
+        setMovieDetails(processedData);
+
+
       } catch (err) {
         setError("Error fetching movie details.");
       }
@@ -67,6 +103,8 @@ const AdminEditMovie = () => {
     };
 
     console.log(data);
+
+    navigate("/home");
 
     try {
       const response = await axios.post("http://localhost/add_movie", data);
@@ -119,13 +157,13 @@ const AdminEditMovie = () => {
         <div
           className="movie-cardto"
           style={{
-            backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url(https://image.tmdb.org/t/p/original${movieDetails.backdrop_path})`,
+            backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url(${movieDetails.backdrop_path})`,
           }}
         >
           {/* Left Column - Movie Details */}
           <div className="poster-container">
             <img
-              src={`https://image.tmdb.org/t/p/original${movieDetails.poster_path}`}
+              src={`${movieDetails.poster_path}`}
               alt="Poster"
               className="poster-img"
             />
@@ -147,21 +185,13 @@ const AdminEditMovie = () => {
           </div>
         </div>
 
-        {/* Backdrop */}
-        {/* <div
-        className="backdrop"
-        style={{
-          backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url(https://image.tmdb.org/t/p/original${movieDetails.backdrop_path})`,
-        }}
-      ></div> */}
-
         {/* Cast Section */}
         <h1 className="cast-header">Cast</h1>
         <div className="cast-section">
           {movieDetails.cast.map((member, index) => (
             <div key={index} className="cast-item">
               <img
-                src={`https://image.tmdb.org/t/p/original${member.profile_path}`}
+                src={`${member.profile_path}`}
                 alt={member.name}
                 className="cast-image"
               />
@@ -242,45 +272,6 @@ const AdminEditMovie = () => {
           <button onClick={handleAddCastMember}>Add Cast Member</button>
         </div>
 
-        {/* Photos Section */}
-        <h2 className="cast-header">Photos</h2>
-        <div className="photo-gallery">
-          {movieDetails.posters.map((poster, index) => (
-            <div key={index} className="photo-card">
-              <img
-                src={`https://image.tmdb.org/t/p/original${poster.file_path}`}
-                alt={`Poster ${index + 1}`}
-                className="poster-image"
-              />
-              {/* <label>URL:</label> */}
-            {/* <input
-              type="text"
-              value={poster.file_path}
-              onChange={(e) =>
-                setMovieDetails({
-                  ...movieDetails,
-                  posters: movieDetails.posters.map((item, i) =>
-                    i === index ? { ...item, file_path: e.target.value } : item
-                  ),
-                })
-              }
-            />  */}
-            </div>
-          ))}
-        </div>
-        <h2 className="cast-header">Add New Photo</h2>
-        <div className="addCastMember">
-          <label>URL:</label>
-          <input
-            type="text"
-            value={newPhoto.file_path}
-            onChange={(e) =>
-              setNewPhoto({ ...newPhoto, file_path: e.target.value })
-            }
-          />
-          <button onClick={handleAddPhoto}>Add Photo</button>
-        </div>
-
       </div>
 
    
@@ -291,7 +282,7 @@ const AdminEditMovie = () => {
         {movieDetails.posters.map((poster, index) => (
           <div key={index} className="photo-card">
             <img
-              src={`https://image.tmdb.org/t/p/original${poster.file_path}`}
+              src={`${poster.file_path}`}
               alt={`Poster ${index + 1}`}
               className="poster-image"
             />
@@ -331,7 +322,7 @@ const AdminEditMovie = () => {
           <div key={index} className="video-card">
             {/* Video Iframe */}
             <iframe
-              src={`https://www.youtube.com/embed/${result.key}`}
+              src={`${result.key}`}
               title={result.name}
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
