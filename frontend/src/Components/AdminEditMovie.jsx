@@ -234,38 +234,53 @@ const AdminEditMovie = () => {
       <button onClick={handleAddPhoto}>Add Photo</button>
       </div>
 
-      {/* Videos Section */}
+     {/* Videos Section */}
       <h2 className='cast-header'>Videos</h2>
-      {movieDetails.results.map((result, index) => (
-        <div key={index}>
-          <label>Key:</label>
-          <input
-            type="text"
-            value={result.key}
-            onChange={(e) =>
-              setMovieDetails({
-                ...movieDetails,
-                results: movieDetails.results.map((item, i) =>
-                  i === index ? { ...item, key: e.target.value } : item
-                ),
-              })
-            }
-          />
-          <label>Name:</label>
-          <input
-            type="text"
-            value={result.name}
-            onChange={(e) =>
-              setMovieDetails({
-                ...movieDetails,
-                results: movieDetails.results.map((item, i) =>
-                  i === index ? { ...item, name: e.target.value } : item
-                ),
-              })
-            }
-          />
-        </div>
-      ))}
+      <div className="video-gallery">
+        {movieDetails.results.map((result, index) => (
+          <div key={index} className="video-card">
+            {/* Video Iframe */}
+            <iframe
+              src={`https://www.youtube.com/embed/${result.key}`}
+              title={result.name}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="video-frame"
+            ></iframe>
+
+            {/* Video Title */}
+            <div className="video-title">
+
+              <input
+                type="text"
+                value={result.name}
+                onChange={(e) =>
+                  setMovieDetails({
+                    ...movieDetails,
+                    results: movieDetails.results.map((item, i) =>
+                      i === index ? { ...item, name: e.target.value } : item
+                    ),
+                  })
+                }
+                className="video-title-input"
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+
+<h2 className='cast-header'>Add New Video</h2>
+<div className='addCastMember'>
+  <label>Key:</label>
+  <input
+    type="text"
+    value={newVideo.key}
+    onChange={(e) => setNewVideo({ ...newVideo, key: e.target.value })}
+  />
+  <button onClick={handleAddVideo}>Add Video</button>
+</div>
+
       <h2 className='cast-header'>Add New Video</h2>
       <div className='addCastMember'>
       <label>Key:</label>

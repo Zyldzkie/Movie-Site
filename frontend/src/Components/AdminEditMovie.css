@@ -342,3 +342,49 @@ h2 {
     transform: translateY(-5px); /* Lift effect on hover */
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
+  .video-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+  }
+  
+  .video-card {
+    flex: 1 1 600px;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    background: #FFB2CF;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+  
+  .video-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .video-frame {
+    width: 100%;
+    height: 300px; /* Increased height for a larger display */
+    border: none;
+  }
+  
+  .video-title {
+    padding: 16px;
+    text-align: center;
+    background: #FFB2CF;
+    border-top: 1px solid #ddd;
+    
+  }
+  
+  .video-title-input {
+    width: calc(100% - 20px); /* Ensure input fits within the card */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-top: 6px;
+    box-sizing: border-box; /* Prevent overlapping due to box model issues */
+  }
