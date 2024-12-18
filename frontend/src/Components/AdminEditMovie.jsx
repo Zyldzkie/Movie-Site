@@ -87,33 +87,30 @@ const AdminEditMovie = () => {
   }, [tmdbId]);
 
   const handleAddMovie = async () => {
-    //console.log(movieDetails);
-
     const data = {
-      id: movieDetails.id,
-      title: movieDetails.title,
-      overview: movieDetails.overview,
-      popularity: movieDetails.popularity,
-      releaseDate: movieDetails.release_date,
-      voteAverage: movieDetails.vote_average,
-      backdropPath: movieDetails.backdrop_path,
-      posterPath: movieDetails.poster_path,
-      cast: movieDetails.cast,
-      photos: movieDetails.posters,
-      videos: movieDetails.results,
-      isFeatured: isFeatured
+        id: movieDetails.id,
+        title: movieDetails.title,
+        overview: movieDetails.overview,
+        popularity: movieDetails.popularity,
+        releaseDate: movieDetails.release_date,
+        voteAverage: movieDetails.vote_average,
+        backdropPath: movieDetails.backdrop_path,
+        posterPath: movieDetails.poster_path,
+        cast: movieDetails.cast,
+        photos: movieDetails.posters,
+        videos: movieDetails.results,
+        isFeatured: isFeatured
     };
 
     console.log(data);
 
-    navigate("/home");
-
-    // try {
-    //   const response = await axios.post("http://localhost/add_movie", data);
-    //   console.log(response.data);
-    // } catch (err) {
-    //   console.error(err);
-    // }
+    try {
+        const response = await axios.post("http://localhost/add_movie", data);
+        console.log(response.data);
+        navigate("/home");
+    } catch (err) {
+        console.error(err);
+    }
   };
 
   const handleCheckboxChange = (event) => {
