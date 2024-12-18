@@ -20,6 +20,7 @@ const HomePage = () => {
     favorites: [],
     searchTerm: ''
   });
+  const [globalFavorites, setGlobalFavorites] = useState([]);
 
   const fetchMovies = async () => {
     try {
@@ -108,6 +109,10 @@ const HomePage = () => {
     }
   };
 
+  const handleFavoriteUpdate = () => {
+    // Optionally refresh movies or handle other updates
+  };
+
   return (
     <div className="home-page">
       <div className="sidebar">
@@ -138,11 +143,14 @@ const HomePage = () => {
               onAddToFavorites={handleAddToFavorites}
               onDeleteMovie={handleDeleteMovie}
               refreshMovies={handleRefreshMovies}
+              onFavoriteUpdate={handleFavoriteUpdate}
+              setGlobalFavorites={setGlobalFavorites}
             />
           </div>
           <div className="favorites">
             <FavoritesPanel 
-              favorites={movieData.favorites}
+              globalFavorites={globalFavorites}
+              setGlobalFavorites={setGlobalFavorites}
             />
           </div>
         </div>

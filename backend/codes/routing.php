@@ -43,6 +43,15 @@ switch($user_link){
     case "/update_movie":
         require("restapi/update_movie.php");
         break;
+    case "/add_favorite":
+        require("restapi/add_favorite.php");
+        break;
+    case "/remove_favorite":
+        require("restapi/remove_favorite.php");
+        break;
+    case "/get_favorite":
+        require("restapi/get_favorite.php");
+        break;
     default:
         http_response_code(404);
         break;

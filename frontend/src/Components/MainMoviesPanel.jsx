@@ -1,15 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./MainMoviesPanel.css";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-const MainMoviesPanel = ({ movies, onWatch, onAddToFavorites, onDeleteMovie }) => {
+const MainMoviesPanel = ({ movies, onWatch, onDeleteMovie, onFavoriteUpdate, setGlobalFavorites }) => {
     const navigate = useNavigate();
+    const [favorites, setFavorites] = useState([]);
+    const [userId, setUserId] = useState(null);
+    const [expandedMovies, setExpandedMovies] = useState({});
+
+    useEffect(() => {
+        const fetchUserAndFavorites = async () => {
+            try {
+                const userResponse = await axios.get('http://localhost/get_user');
+                setUserId(userResponse.data.UserID);
+                
+                const favoritesResponse = await axios.get(`http://localhost/get_favorite?userId=${userResponse.data.UserID}`);
+                setFavorites(favoritesResponse.data.favorites || []);
+            } catch (err) {
+                console.error('Error fetching user data or favorites:', err);
+            }
+        };
+
+        fetchUserAndFavorites();
+    }, []);
+
+    const handleFavoriteToggle = async (movie) => {
+        try {
+            const isFavorited = favorites.some(fav => fav.movieId === movie.movieId);
+            
+            if (isFavorited) {
+                await axios.delete(`http://localhost/remove_favorite?movieId=${movie.movieId}&userId=${userId}`);
+                const newFavorites = favorites.filter(fav => fav.movieId !== movie.movieId);
+                setFavorites(newFavorites);
+                setGlobalFavorites(newFavorites);
+            } else {
+                await axios.post('http://localhost/add_favorite', {
+                    movieId: movie.movieId,
+                    userId: userId
+                });
+                const newFavorites = [...favorites, movie];
+                setFavorites(newFavorites);
+                setGlobalFavorites(newFavorites);
+            }
+            
+            if (onFavoriteUpdate) {
+                onFavoriteUpdate();
+            }
+        } catch (err) {
+            console.error('Error toggling favorite:', err);
+        }
+    };
 
     const handleAddMovie = () => {
         navigate("/admin_search");
     };
-
-    const [expandedMovies, setExpandedMovies] = useState({});
 
     const toggleDescription = (movieId) => {
         setExpandedMovies((prev) => ({
@@ -29,6 +74,7 @@ const MainMoviesPanel = ({ movies, onWatch, onAddToFavorites, onDeleteMovie }) =
                 {movies && movies.length > 0 ? (
                     movies.map((movie) => {
                         const isExpanded = expandedMovies[movie.movieId] || false;
+                        const isFavorited = favorites.some(fav => fav.movieId === movie.movieId);
                         const descriptionPreview = movie.overview.length > 100
                             ? `${movie.overview.slice(0, 100)}...`
                             : movie.overview;
@@ -63,10 +109,10 @@ const MainMoviesPanel = ({ movies, onWatch, onAddToFavorites, onDeleteMovie }) =
                                         Watch
                                     </button>
                                     <button
-                                        className="watch-button"
-                                        onClick={() => onAddToFavorites(movie)}
+                                        className={`favorite-button ${isFavorited ? 'favorited' : ''}`}
+                                        onClick={() => handleFavoriteToggle(movie)}
                                     >
-                                        Add to Favorites
+                                        {isFavorited ? 'Remove from Favorites' : 'Add to Favorites'}
                                     </button>
                                     <button
                                         className="watch-button"
