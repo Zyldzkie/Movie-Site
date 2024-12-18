@@ -192,6 +192,7 @@ h2 {
     border-radius: 10px;
     text-align: center;
     width: 150px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
   
   .cast-img {
@@ -199,6 +200,7 @@ h2 {
     height: 150px;
     border-radius: 5px;
     margin-bottom: 10px;
+    
   }
   
   h2 {
@@ -235,6 +237,7 @@ h2 {
     text-align: center;
     color: white;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
   
   .cast-item:hover {
@@ -247,6 +250,7 @@ h2 {
     height: 300px;
     object-fit: cover;
     border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
   
   .cast-item label {
@@ -261,14 +265,17 @@ h2 {
     margin-bottom: 10px;
     border: none;
     border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
   
-  .addCastMember{
+  .addCastMember {
     background-color: #FFB2CF;
-    width: 100%;
+    width: 90%; /* Adjust width to ensure responsiveness */
+    max-width: 600px; /* Prevent it from becoming too wide */
     border-radius: 5px;
-    margin: 0 auto;
+    margin: 0 auto; /* Center the form */
     padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add some elevation for a better look */
   }
 
   .addCastHead{
@@ -283,10 +290,11 @@ h2 {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+    
   }
 
   
-  .formGroup {
+  .formGroupCast {
     display: flex;
     justify-content: space-between;
     gap: 20px;
@@ -387,4 +395,15 @@ h2 {
     font-size: 16px;
     margin-top: 6px;
     box-sizing: border-box; /* Prevent overlapping due to box model issues */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+.addBtn{
+  background-color: #fe689d;
+  transition: ease-in 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+  .addBtn:hover{
+    background-color: #f54784;
   }

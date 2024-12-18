@@ -167,7 +167,7 @@ const AdminEditMovie = () => {
   {/* Add New Cast Member Section */}
   
   
-  <div className="formGroup">
+  <div className="formGroupCast">
     <div className="left">
       <label>Name:</label>
       <input
@@ -194,7 +194,7 @@ const AdminEditMovie = () => {
     onChange={(e) => setNewCastMember({ ...newCastMember, profile_path: e.target.value })}
   />
   
-  <button onClick={handleAddCastMember}>Add Cast Member</button>
+  <button className='addBtn' onClick={handleAddCastMember}>Add Cast Member</button>
 </div>
 
       {/* Photos Section */}
@@ -231,7 +231,7 @@ const AdminEditMovie = () => {
         value={newPhoto.file_path}
         onChange={(e) => setNewPhoto({ ...newPhoto, file_path: e.target.value })}
       />
-      <button onClick={handleAddPhoto}>Add Photo</button>
+      <button className='addBtn' onClick={handleAddPhoto}>Add Photo</button>
       </div>
 
      {/* Videos Section */}
@@ -270,16 +270,7 @@ const AdminEditMovie = () => {
         ))}
       </div>
 
-<h2 className='cast-header'>Add New Video</h2>
-<div className='addCastMember'>
-  <label>Key:</label>
-  <input
-    type="text"
-    value={newVideo.key}
-    onChange={(e) => setNewVideo({ ...newVideo, key: e.target.value })}
-  />
-  <button onClick={handleAddVideo}>Add Video</button>
-</div>
+
 
       <h2 className='cast-header'>Add New Video</h2>
       <div className='addCastMember'>
@@ -289,9 +280,13 @@ const AdminEditMovie = () => {
         value={newVideo.key}
         onChange={(e) => setNewVideo({ ...newVideo, key: e.target.value })}
       />
-      <button onClick={handleAddVideo}>Add Video</button>
+      <button className='addBtn' onClick={handleAddVideo}>Add Video</button>
       </div>
-      <button onClick={handleAddMovie}>Add Movie</button>
+
+      <h2 className='cast-header'>Add Movie</h2>
+      <div className='addCastMember'>
+        <button className='addBtn' onClick={handleAddMovie}>Add Movie</button>
+      </div>
     </div>
     </div>
   );
