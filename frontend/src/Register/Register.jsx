@@ -112,7 +112,7 @@ function Register() {
         </div>
         
         <form onSubmit={handleRegister} className="register-form">
-          <div className="form-group">
+          <div className="form-group2">
             <input
               ref={emailRef}
               type="email"
@@ -120,11 +120,11 @@ function Register() {
               onChange={(e) => handleOnChange(e, 'email')}
               placeholder="Email"
               required
-              className="form-input"
+              className="form-input2"
             />
           </div>
 
-          <div className="form-group">
+          <div className="form-group2">
             <input
               ref={fNameRef}
               type="text"
@@ -132,11 +132,11 @@ function Register() {
               onChange={(e) => handleOnChange(e, 'firstName')}
               placeholder="Name"
               required
-              className="form-input"s
+              className="form-input2"
             />
           </div>
 
-          <div className="form-group">
+          <div className="form-group2">
             <input
               ref={passwordRef}
               type={isShowPassword ? 'text' : 'password'}
@@ -144,18 +144,18 @@ function Register() {
               onChange={(e) => handleOnChange(e, 'password')}
               placeholder="Password"
               required
-              className="form-input"
+              className="form-input2"
             />
             <button
               type="button"
-              className="password-toggle"
+              className="password-toggle2"
               onClick={toggleShowPassword}
             >
               {isShowPassword ? '👁️' : '👁️‍🗨️'}
             </button>
           </div>
 
-          <div className="form-group">
+          <div className="form-group2">
             <input
               ref={passwordRef}
               type={isShowPassword ? 'text' : 'password'}
@@ -163,7 +163,7 @@ function Register() {
               onChange={(e) => handleOnChange(e, 'confirmpassword')}
               placeholder="Confirm Password"
               required
-              className="form-input"
+              className="form-input2"
             />
           </div>
 
@@ -180,8 +180,8 @@ function Register() {
           </button>
         </form>
 
-        <div className="login-prompt">
-          <p>Already have an account? <Link to="/" className="login-link">Sign In</Link></p>
+        <div className="login-prompt2">
+          <p>Already have an account? <Link to="/" className="login-link2">Sign In</Link></p>
         </div>
       </div>
     </div>

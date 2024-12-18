@@ -23,7 +23,7 @@ label {
   color: #333;
 }
 
-input[type="text"],
+/* input[type="text"],
 input[type="number"],
 textarea {
   width: 100%;
@@ -32,7 +32,7 @@ textarea {
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 14px;
-}
+} */
 
 textarea {
   resize: vertical;
@@ -49,9 +49,7 @@ button {
   font-size: 14px;
 }
 
-button:hover {
-  background-color: #0056b3;
-}
+
 
 /* Section Headers */
 h1,
@@ -315,10 +313,7 @@ h2 {
     cursor: pointer;
   }
   
-  button:hover {
-    background-color: #d52160;
-  }
-  
+
 
   .photo-gallery {
     display: grid;
