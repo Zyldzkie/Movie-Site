@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./MainMoviesPanel.css";
 import FavoritesPanel from './FavoritesPanel';
+import { useNavigate, Link } from 'react-router-dom';
 
 
 axios.defaults.withCredentials = true;
@@ -10,6 +11,9 @@ const MainMoviesPanel = ({ movies, onWatch, onAddToFavorites }) => {
     const [error, setError] = useState(null);
     const [results, setResults] = useState([]);
     const [favorites, setFavorites] = useState([]);
+
+    const navigate = useNavigate();
+
     
     const searchMovie = async () => {
       try {
@@ -33,6 +37,10 @@ const MainMoviesPanel = ({ movies, onWatch, onAddToFavorites }) => {
         { id: movie.movieId, title: movie.title, poster: `https://image.tmdb.org/t/p/w500${movie.posterPath}` }
       ]);
     };
+
+    const handleAddMovie = () => {
+      navigate("/admin_search");
+    }
   
     useEffect(() => {
       searchMovie();
@@ -47,7 +55,11 @@ const MainMoviesPanel = ({ movies, onWatch, onAddToFavorites }) => {
   return (
     <div className="main-movies-panel">
       {/* Header Section */}
-      <h2 className="movies-header">Movies</h2>
+      <div>
+        <h2 className="movies-header">Movies</h2>
+        <button onClick={handleAddMovie}>Add Movie</button>
+      </div>
+      
 
       {/* Movie Cards */}
       <div className="movies-cards">
