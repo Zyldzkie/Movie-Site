@@ -82,14 +82,7 @@ const HomePage = () => {
     const handleWatch = async (id) => {
       try {
         const response = await axios.get("http://localhost/get_user");
-        console.log(response.data);
-        const userRole = response.data.Role;
-        
-        if (userRole === 'Admin') {
-          navigate(`/admin_edit/${id}`);
-        } else {
-          navigate(`/user_view/${id}`);
-        }
+        navigate(`/view/${id}`);
       } catch (err) {
         console.error('Failed to fetch user role:', err);
     }

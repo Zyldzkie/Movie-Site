@@ -40,6 +40,9 @@ switch($user_link){
     case "/get_movie":
         require("restapi/get_movie.php");
         break;
+    case "/update_movie":
+        require("restapi/update_movie.php");
+        break;
     default:
         http_response_code(404);
         break;
