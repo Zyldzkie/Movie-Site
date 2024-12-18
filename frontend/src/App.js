@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './Pages/HomePage';
-import AdminSearchMovie from './Components/AdminSearchMovie';
-import AdminEditMovie from './Components/AdminEditMovie';
+import AdminSearchMovie from './Pages/AdminSearchMovie';
+import AdminEditMovie from './Pages/AdminEditMovie';
 import './App.css';
 import Login from './Login/Login';
 import Register from './Register/Register';
