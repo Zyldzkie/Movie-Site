@@ -45,6 +45,8 @@ const AdminEditMovie = () => {
 
         const data = response.data;
 
+        console.log(data)
+
         const processedData = {
           ...data,
           poster_path: data.poster_path
@@ -53,23 +55,23 @@ const AdminEditMovie = () => {
           backdrop_path: data.backdrop_path
             ? `https://image.tmdb.org/t/p/original${data.backdrop_path}`
             : null,
-          cast: data.cast.slice(0, 10).map((member) => ({ // Limit to 10
+          cast: data.cast.slice(0, 9).map((member) => ({
             ...member,
             profile_path: member.profile_path
               ? `https://image.tmdb.org/t/p/original${member.profile_path}`
               : null,
           })),
-          posters: data.posters.slice(0, 10).map((poster) => ({ // Limit to 10
+          posters: data.posters.slice(0, 9).map((poster) => ({ 
             ...poster,
             file_path: poster.file_path
               ? `https://image.tmdb.org/t/p/original${poster.file_path}`
               : null,
           })),
-          results: data.results.slice(0, 10).map((result) => ({ // Limit to 10
-            ...result,
+          results: data.results.slice(0, 9).map((result) => ({
             key: result.key
               ? `https://www.youtube.com/embed/${result.key}`
               : null,
+            name: result.name
           })),
         };
         
@@ -106,12 +108,12 @@ const AdminEditMovie = () => {
 
     navigate("/home");
 
-    try {
-      const response = await axios.post("http://localhost/add_movie", data);
-      console.log(response.data);
-    } catch (err) {
-      console.error(err);
-    }
+    // try {
+    //   const response = await axios.post("http://localhost/add_movie", data);
+    //   console.log(response.data);
+    // } catch (err) {
+    //   console.error(err);
+    // }
   };
 
   const handleCheckboxChange = (event) => {
