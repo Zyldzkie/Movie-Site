@@ -251,8 +251,8 @@ const AdminEditMovie = () => {
                 alt={`Poster ${index + 1}`}
                 className="poster-image"
               />
-              {/* <label>URL:</label>
-            <input
+              {/* <label>URL:</label> */}
+            {/* <input
               type="text"
               value={poster.file_path}
               onChange={(e) =>
@@ -263,7 +263,7 @@ const AdminEditMovie = () => {
                   ),
                 })
               }
-            /> */}
+            />  */}
             </div>
           ))}
         </div>
@@ -311,8 +311,8 @@ const AdminEditMovie = () => {
       <label>Name:</label>
       <input
         type="text"
-        value={newCastMember.original_name}
-        onChange={(e) => setNewCastMember({ ...newCastMember, original_name: e.target.value })}
+        value={newCastMember.name}
+        onChange={(e) => setNewCastMember({ ...newCastMember, name: e.target.value })}
       />
     </div>
     
@@ -346,9 +346,9 @@ const AdminEditMovie = () => {
               alt={`Poster ${index + 1}`}
               className="poster-image"
             />
-            {/* <label>URL:</label>
+            {/* <label>URL:</label>*/}
 
-            <input
+            {/* <input
               type="text"
               value={result.name}
               onChange={(e) =>
@@ -359,7 +359,7 @@ const AdminEditMovie = () => {
                   ),
                 })
               }
-            />
+            /> */}
           </div>
 
       ))}
@@ -424,11 +424,17 @@ const AdminEditMovie = () => {
       <button className='addBtn' onClick={handleAddVideo}>Add Video</button>
       </div>
 
+      <label>Is Featured:</label>
+          <input
+            type="checkbox"
+            checked={isFeatured}
+            onChange={handleCheckboxChange}
+          />
+
       <h2 className='cast-header'>Add Movie</h2>
       <div className='addCastMember'>
         <button className='addBtn' onClick={handleAddMovie}>Add Movie</button>
       </div>
-    </div>
     </div>
   );
 };
