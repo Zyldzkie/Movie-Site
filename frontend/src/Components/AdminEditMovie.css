@@ -132,26 +132,29 @@ h2 {
   
   .movie-cardto {
     display: flex;
-    flex-direction: row; /* Align children side by side */
-    align-items: flex-start; /* Align items at the top */
+    flex-direction: row;
+    align-items: flex-start;
     background-color: rgba(0, 0, 0, 0.8);
     padding: 20px;
     border-radius: 10px;
     width: 100%;
-    gap: 20px; /* Space between poster and details */
+    gap: 20px;
     margin-top: 30px;
     border: 10px solid #FFB2CF;
+    min-height: 500px;
   }
   
   .poster-container {
-    flex: 1; /* Make the poster take up one part of the space */
+    flex: 1;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 20px;
   }
   
   .details {
-    flex: 2; /* Make details take up two parts of the space */
+    flex: 2;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -162,6 +165,9 @@ h2 {
     max-width: 60%;
     height: auto;
     border-radius: 10px;
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   }
   
   .movietite {
@@ -407,3 +413,49 @@ h2 {
   .addBtn:hover{
     background-color: #f54784;
   }
+
+.input-group {
+  margin: 10px 0;
+}
+
+.input-group label {
+  display: block;
+  color: white;
+  margin-bottom: 5px;
+}
+
+.input-group input,
+.input-group textarea {
+  width: 100%;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  color: white;
+}
+
+.title-input {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.overview-input {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.input-group input[type="number"] {
+  width: 100px;
+}
+
+.input-group input[type="date"] {
+  width: 150px;
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.2);
+}

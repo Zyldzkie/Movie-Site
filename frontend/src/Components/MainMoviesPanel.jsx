@@ -41,6 +41,22 @@ const MainMoviesPanel = ({ movies, onWatch, onAddToFavorites }) => {
     const handleAddMovie = () => {
       navigate("/admin_search");
     }
+
+    const onDeleteMovie = async (movieId) => {
+      console.log('Attempting to delete movie:', movieId);
+      try {
+        const response = await axios.delete(`http://localhost/delete_movie?movieId=${movieId}`);
+        console.log('Server response:', response.data);
+        if (response.data.success) {
+          setResults((prevResults) => prevResults.filter(movie => movie.movieId !== movieId));
+        } else {
+          setError('Error deleting movie. Please try again.');
+        }
+      } catch (err) {
+        setError('Error deleting movie. Please try again.');
+        console.error(err);
+      }
+    }
   
     useEffect(() => {
       searchMovie();
@@ -85,6 +101,12 @@ const MainMoviesPanel = ({ movies, onWatch, onAddToFavorites }) => {
                                 onClick={() => onAddToFavorites(movie)}
                             >
                                 Add to Favorites
+                            </button>
+                            <button
+                                className="watch-button"
+                                onClick={() => onDeleteMovie(movie.movieId)}
+                            >
+                                Delete
                             </button>
                         </div>
                     </div>

@@ -11,30 +11,20 @@ import './HomePage.css';
 axios.defaults.withCredentials = true;
 
 const HomePage = () => {
-  const [movies, setMovies] = useState([
-    {
-      id: 1,
-      title: 'Inception',
-      poster: 'https://via.placeholder.com/150',
-      description: 'A mind-bending thriller about dreams within dreams.',
-    },
-    {
-      id: 2,
-      title: 'Interstellar',
-      poster: 'https://via.placeholder.com/150',
-      description: 'A journey beyond the stars to save humanity.',
-    },
-    {
-      id: 3,
-      title: 'The Dark Knight',
-      poster: 'https://via.placeholder.com/150',
-      description: 'A gritty and realistic take on Batman.',
-    },
-    
-  ]);
-
+  const [movies, setMovies] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+
+  const fetchMovies = async () => {
+    try {
+      const response = await axios.get("http://localhost/get_movies");
+      if (response.data) {
+        setMovies(response.data);
+      }
+    } catch (err) {
+      console.error("Error fetching movies:", err);
+    }
+  };
 
   const getUser = async () => {
     try {
@@ -44,10 +34,10 @@ const HomePage = () => {
       console.error(err);
     }
   };
-  
 
   useEffect(() => {
     getUser();
+    fetchMovies();
   }, []); 
 
   // Handle search input
@@ -99,6 +89,7 @@ const HomePage = () => {
               movies={filteredMovies}
               onWatch={handleWatch}
               onAddToFavorites={handleAddToFavorites}
+              refreshMovies={fetchMovies}
             />
           </div>
           <div className="favorites">
