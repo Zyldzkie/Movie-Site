@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import NavBar from '../Components/NavBar';
 import FeaturedMovies from '../Components/FeaturedMovies';
 import MainMoviesPanel from '../Components/MainMoviesPanel';
@@ -11,58 +12,94 @@ import './HomePage.css';
 axios.defaults.withCredentials = true;
 
 const HomePage = () => {
-  const [movies, setMovies] = useState([]);
-  const [favorites, setFavorites] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const location = useLocation();
+  const [movieData, setMovieData] = useState({
+    allMovies: [],
+    filteredMovies: [],
+    favorites: [],
+    searchTerm: ''
+  });
 
   const fetchMovies = async () => {
     try {
       const response = await axios.get("http://localhost/get_movies");
       if (response.data) {
-        setMovies(response.data);
+        setMovieData(prev => ({
+          ...prev,
+          allMovies: response.data,
+          filteredMovies: response.data
+        }));
       }
     } catch (err) {
       console.error("Error fetching movies:", err);
     }
   };
 
-  const getUser = async () => {
-    try {
-      const response = await axios.get("http://localhost/get_user");
-      console.log('User:', response.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   useEffect(() => {
-    getUser();
     fetchMovies();
   }, []); 
 
-  // Handle search input
+  useEffect(() => {
+    if (location.state?.refresh) {
+      fetchMovies();
+      window.history.replaceState({}, document.title);
+    }
+  }, [location]);
+
+  // Centralized handlers
   const handleSearch = (term) => {
-    setSearchTerm(term);
-  };
-
-  // Filter movies based on search term
-  const filteredMovies = searchTerm
-    ? movies.filter((movie) =>
-        movie.title.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    : movies;
-
-  // Add to favorites
-  const handleAddToFavorites = (movie) => {
-    // Check if movie is already in favorites
-    if (!favorites.some((fav) => fav.id === movie.id)) {
-      setFavorites([...favorites, movie]);
+    const searchTerm = term.toLowerCase().trim();
+    
+    if (searchTerm === '') {
+      setMovieData(prev => ({
+        ...prev,
+        searchTerm: '',
+        filteredMovies: prev.allMovies
+      }));
+    } else {
+      const filtered = movieData.allMovies.filter((movie) => 
+        movie.title.toLowerCase().includes(searchTerm)
+      );
+      
+      setMovieData(prev => ({
+        ...prev,
+        searchTerm: term,
+        filteredMovies: filtered
+      }));
     }
   };
 
-  // Watch movie (example function)
+  const handleAddToFavorites = (movie) => {
+    if (!movieData.favorites.some((fav) => fav.id === movie.id)) {
+      setMovieData(prev => ({
+        ...prev,
+        favorites: [...prev.favorites, movie]
+      }));
+    }
+  };
+
   const handleWatch = (id) => {
     alert(`Watching movie with ID: ${id}`);
+  };
+
+  const handleRefreshMovies = async () => {
+    await fetchMovies();
+  };
+
+  const handleDeleteMovie = async (movieId) => {
+    try {
+      const response = await axios.delete(`http://localhost/delete_movie?movieId=${movieId}`);
+      if (response.data.success) {
+        // Update both allMovies and filteredMovies after deletion
+        setMovieData(prev => ({
+          ...prev,
+          allMovies: prev.allMovies.filter(movie => movie.movieId !== movieId),
+          filteredMovies: prev.filteredMovies.filter(movie => movie.movieId !== movieId)
+        }));
+      }
+    } catch (err) {
+      console.error("Error deleting movie:", err);
+    }
   };
 
   return (
@@ -76,24 +113,31 @@ const HomePage = () => {
             <Account />
           </div>
           <div className="search">
-            <SearchBar onSearch={handleSearch} />
+            <SearchBar 
+              onSearch={handleSearch}
+              searchTerm={movieData.searchTerm}
+            />
           </div>
-          
         </div>
         <div className="featured">
-            <FeaturedMovies featured={filteredMovies.slice(0, 5)} />
-          </div>
+          <FeaturedMovies 
+            movies={movieData.allMovies}
+          />
+        </div>
         <div className="bottom-row">
           <div className="main-movies">
             <MainMoviesPanel
-              movies={filteredMovies}
+              movies={movieData.filteredMovies}
               onWatch={handleWatch}
               onAddToFavorites={handleAddToFavorites}
-              refreshMovies={fetchMovies}
+              onDeleteMovie={handleDeleteMovie}
+              refreshMovies={handleRefreshMovies}
             />
           </div>
           <div className="favorites">
-            <FavoritesPanel favorites={favorites} />
+            <FavoritesPanel 
+              favorites={movieData.favorites}
+            />
           </div>
         </div>
       </div>
