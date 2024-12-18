@@ -168,19 +168,114 @@ const AdminEditMovie = () => {
             />
           </div>
 
-          {/* Right Column - Poster Image */}
+          {/* Right Column - Movie Details */}
           <div className="details">
-            <h1 className="movietite">{movieDetails.title}</h1>
-            <p className="overview">{movieDetails.overview}</p>
-            <p>
-              <strong>Popularity:</strong> {movieDetails.popularity}
-            </p>
-            <p>
-              <strong>Release Date:</strong> {movieDetails.release_date}
-            </p>
-            <p>
-              <strong>Vote Average:</strong> {movieDetails.vote_average}
-            </p>
+            {/* Path inputs in one row */}
+            <div className="input-row">
+              <div className="input-group half">
+                <label>Poster Path:</label>
+                <input
+                  type="text"
+                  value={movieDetails.poster_path}
+                  onChange={(e) =>
+                    setMovieDetails({
+                      ...movieDetails,
+                      poster_path: e.target.value,
+                    })
+                  }
+                />
+              </div>
+              <div className="input-group half">
+                <label>Backdrop Path:</label>
+                <input
+                  type="text"
+                  value={movieDetails.backdrop_path}
+                  onChange={(e) =>
+                    setMovieDetails({
+                      ...movieDetails,
+                      backdrop_path: e.target.value,
+                    })
+                  }
+                />
+              </div>
+            </div>
+
+            <div className="input-group">
+              <label>Title:</label>
+              <input
+                type="text"
+                value={movieDetails.title}
+                onChange={(e) =>
+                  setMovieDetails({
+                    ...movieDetails,
+                    title: e.target.value,
+                  })
+                }
+                className="title-input"
+              />
+            </div>
+
+            <div className="input-group">
+              <label>Overview:</label>
+              <textarea
+                value={movieDetails.overview}
+                onChange={(e) =>
+                  setMovieDetails({
+                    ...movieDetails,
+                    overview: e.target.value,
+                  })
+                }
+                className="overview-input"
+              />
+            </div>
+
+            {/* Numeric inputs in one row */}
+            <div className="input-row">
+              <div className="input-group third">
+                <label>Popularity:</label>
+                <input
+                  type="number"
+                  value={movieDetails.popularity}
+                  onChange={(e) =>
+                    setMovieDetails({
+                      ...movieDetails,
+                      popularity: parseFloat(e.target.value),
+                    })
+                  }
+                />
+              </div>
+
+              <div className="input-group third">
+                <label>Release Date:</label>
+                <input
+                  type="date"
+                  value={movieDetails.release_date}
+                  onChange={(e) =>
+                    setMovieDetails({
+                      ...movieDetails,
+                      release_date: e.target.value,
+                    })
+                  }
+                />
+              </div>
+
+              <div className="input-group third">
+                <label>Vote Average:</label>
+                <input
+                  type="number"
+                  step="0.1"
+                  min="0"
+                  max="10"
+                  value={movieDetails.vote_average}
+                  onChange={(e) =>
+                    setMovieDetails({
+                      ...movieDetails,
+                      vote_average: parseFloat(e.target.value),
+                    })
+                  }
+                />
+              </div>
+            </div>
           </div>
         </div>
 
@@ -354,13 +449,49 @@ const AdminEditMovie = () => {
 
       <h2 className='cast-header'>Add New Video</h2>
       <div className='addCastMember'>
-      <label>Key:</label>
-      <input
-        type="text"
-        value={newVideo.key}
-        onChange={(e) => setNewVideo({ ...newVideo, key: e.target.value })}
-      />
-      <button className='addBtn' onClick={handleAddVideo}>Add Video</button>
+        <div className="formGroupCast">
+          <div className="left">
+            <label>Video Title:</label>
+            <input
+              type="text"
+              value={newVideo.name}
+              onChange={(e) => setNewVideo({ ...newVideo, name: e.target.value })}
+              placeholder="Enter video title"
+            />
+          </div>
+          <div className="right">
+            <label>Video Key (YouTube):</label>
+            <input
+              type="text"
+              value={newVideo.key}
+              onChange={(e) => setNewVideo({ ...newVideo, key: e.target.value })}
+              placeholder="Enter YouTube Embed Video Code"
+            />
+          </div>
+        </div>
+
+        <div className="formGroupCast">
+          <div className="left">
+            <label>Site:</label>
+            <input
+              type="text"
+              value={newVideo.site}
+              onChange={(e) => setNewVideo({ ...newVideo, site: e.target.value })}
+              placeholder="Enter site name"
+            />
+          </div>
+          <div className="right">
+            <label>Type:</label>
+            <input
+              type="text"
+              value={newVideo.type}
+              onChange={(e) => setNewVideo({ ...newVideo, type: e.target.value })}
+              placeholder="Enter video type"
+            />
+          </div>
+        </div>
+
+        <button className='addBtn' onClick={handleAddVideo}>Add Video</button>
       </div>
 
       <label>Is Featured:</label>
@@ -379,3 +510,4 @@ const AdminEditMovie = () => {
 };
 
 export default AdminEditMovie;
+
