@@ -284,11 +284,7 @@ const AdminEditMovie = () => {
         <div className="cast-section">
           {movieDetails.cast.map((member, index) => (
             <div key={index} className="cast-item">
-              <img
-                src={`${member.profile_path}`}
-                alt={member.name}
-                className="cast-image"
-              />
+              <img src={member.profile_path} alt={member.name} className="cast-image" />
               <label>Name:</label>
               <input
                 type="text"
@@ -310,13 +306,22 @@ const AdminEditMovie = () => {
                   setMovieDetails({
                     ...movieDetails,
                     cast: movieDetails.cast.map((item, i) =>
-                      i === index
-                        ? { ...item, character: e.target.value }
-                        : item
+                      i === index ? { ...item, character: e.target.value } : item
                     ),
                   })
                 }
               />
+              <button 
+                className="remove-btn" 
+                onClick={() => {
+                  setMovieDetails({
+                    ...movieDetails,
+                    cast: movieDetails.cast.filter((_, i) => i !== index)
+                  });
+                }}
+              >
+                Remove
+              </button>
             </div>
           ))}
         </div>
@@ -380,20 +385,17 @@ const AdminEditMovie = () => {
               alt={`Poster ${index + 1}`}
               className="poster-image"
             />
-            {/* <label>URL:</label>*/}
-
-            {/* <input
-              type="text"
-              value={result.name}
-              onChange={(e) =>
+            <button 
+              className="remove-btn" 
+              onClick={() => {
                 setMovieDetails({
                   ...movieDetails,
-                  results: movieDetails.results.map((item, i) =>
-                    i === index ? { ...item, name: e.target.value } : item
-                  ),
-                })
-              }
-            /> */}
+                  posters: movieDetails.posters.filter((_, i) => i !== index)
+                });
+              }}
+            >
+              Remove
+            </button>
           </div>
 
       ))}
@@ -426,7 +428,6 @@ const AdminEditMovie = () => {
 
             {/* Video Title */}
             <div className="video-title">
-
               <input
                 type="text"
                 value={result.name}
@@ -440,6 +441,17 @@ const AdminEditMovie = () => {
                 }
                 className="video-title-input"
               />
+              <button 
+                className="remove-btn" 
+                onClick={() => {
+                  setMovieDetails({
+                    ...movieDetails,
+                    results: movieDetails.results.filter((_, i) => i !== index)
+                  });
+                }}
+              >
+                Remove
+              </button>
             </div>
           </div>
         ))}
