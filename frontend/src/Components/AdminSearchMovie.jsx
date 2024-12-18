@@ -39,13 +39,13 @@ const AdminSearchMovie = () => {
       <div className="search-card">
         <h1>Admin Search Movie</h1>
         <input
-        className='input'
+        className='adminSearchinput'
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search for a movie..."
         />
-        <button className="search-button" onClick={handleSearch}>Search</button>
+        <button className="adminsearch-button" onClick={handleSearch}>Search</button>
 
         {error && <p>{error}</p>}
       </div>
