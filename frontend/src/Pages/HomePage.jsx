@@ -109,8 +109,14 @@ const HomePage = () => {
     }
   };
 
-  const handleFavoriteUpdate = () => {
-    // Optionally refresh movies or handle other updates
+  const handleFavoriteUpdate = async () => {
+    try {
+      const userResponse = await axios.get('http://localhost/get_user');
+      const favoritesResponse = await axios.get(`http://localhost/get_favorite?userId=${userResponse.data.UserID}`);
+      setGlobalFavorites(favoritesResponse.data.favorites || []);
+    } catch (err) {
+      console.error('Error updating favorites:', err);
+    }
   };
 
   return (
@@ -145,6 +151,7 @@ const HomePage = () => {
               refreshMovies={handleRefreshMovies}
               onFavoriteUpdate={handleFavoriteUpdate}
               setGlobalFavorites={setGlobalFavorites}
+              globalFavorites={globalFavorites}
             />
           </div>
           <div className="favorites">

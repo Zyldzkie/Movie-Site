@@ -3,45 +3,37 @@ import "./MainMoviesPanel.css";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const MainMoviesPanel = ({ movies, onWatch, onDeleteMovie, onFavoriteUpdate, setGlobalFavorites }) => {
+const MainMoviesPanel = ({ movies, onWatch, onDeleteMovie, onFavoriteUpdate, globalFavorites, setGlobalFavorites }) => {
     const navigate = useNavigate();
-    const [favorites, setFavorites] = useState([]);
     const [userId, setUserId] = useState(null);
     const [expandedMovies, setExpandedMovies] = useState({});
 
     useEffect(() => {
-        const fetchUserAndFavorites = async () => {
+        const fetchUserData = async () => {
             try {
-                const userResponse = await axios.get('http://localhost/get_user');
-                setUserId(userResponse.data.UserID);
-                
-                const favoritesResponse = await axios.get(`http://localhost/get_favorite?userId=${userResponse.data.UserID}`);
-                setFavorites(favoritesResponse.data.favorites || []);
+                const response = await axios.get('http://localhost/get_user');
+                setUserId(response.data.UserID);
             } catch (err) {
-                console.error('Error fetching user data or favorites:', err);
+                console.error('Error fetching user data:', err);
             }
         };
 
-        fetchUserAndFavorites();
+        fetchUserData();
     }, []);
 
     const handleFavoriteToggle = async (movie) => {
         try {
-            const isFavorited = favorites.some(fav => fav.movieId === movie.movieId);
+            const isFavorited = globalFavorites.some(fav => fav.movieId === movie.movieId);
             
             if (isFavorited) {
                 await axios.delete(`http://localhost/remove_favorite?movieId=${movie.movieId}&userId=${userId}`);
-                const newFavorites = favorites.filter(fav => fav.movieId !== movie.movieId);
-                setFavorites(newFavorites);
-                setGlobalFavorites(newFavorites);
+                setGlobalFavorites(prev => prev.filter(fav => fav.movieId !== movie.movieId));
             } else {
                 await axios.post('http://localhost/add_favorite', {
                     movieId: movie.movieId,
                     userId: userId
                 });
-                const newFavorites = [...favorites, movie];
-                setFavorites(newFavorites);
-                setGlobalFavorites(newFavorites);
+                setGlobalFavorites(prev => [...prev, movie]);
             }
             
             if (onFavoriteUpdate) {
@@ -57,9 +49,9 @@ const MainMoviesPanel = ({ movies, onWatch, onDeleteMovie, onFavoriteUpdate, set
     };
 
     const toggleDescription = (movieId) => {
-        setExpandedMovies((prev) => ({
+        setExpandedMovies(prev => ({
             ...prev,
-            [movieId]: !prev[movieId], // Toggle expanded state for the specific movie
+            [movieId]: !prev[movieId]
         }));
     };
 
@@ -74,16 +66,13 @@ const MainMoviesPanel = ({ movies, onWatch, onDeleteMovie, onFavoriteUpdate, set
                 {movies && movies.length > 0 ? (
                     movies.map((movie) => {
                         const isExpanded = expandedMovies[movie.movieId] || false;
-                        const isFavorited = favorites.some(fav => fav.movieId === movie.movieId);
+                        const isFavorited = globalFavorites.some(fav => fav.movieId === movie.movieId);
                         const descriptionPreview = movie.overview.length > 100
                             ? `${movie.overview.slice(0, 100)}...`
                             : movie.overview;
 
                         return (
-                            <div
-                                key={movie.movieId}
-                                className={`movie-card ${isExpanded ? 'expanded' : ''}`}
-                            >
+                            <div key={movie.movieId} className={`movie-card ${isExpanded ? 'expanded' : ''}`}>
                                 <img
                                     src={`${movie.posterPath || 'default-poster.jpg'}`}
                                     alt={movie.title}
