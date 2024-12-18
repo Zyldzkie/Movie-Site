@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import NavBar from '../Components/NavBar';
 import FeaturedMovies from '../Components/FeaturedMovies';
 import MainMoviesPanel from '../Components/MainMoviesPanel';
@@ -12,6 +12,7 @@ import './HomePage.css';
 axios.defaults.withCredentials = true;
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const [movieData, setMovieData] = useState({
     allMovies: [],
@@ -78,8 +79,20 @@ const HomePage = () => {
     }
   };
 
-  const handleWatch = (id) => {
-    alert(`Watching movie with ID: ${id}`);
+    const handleWatch = async (id) => {
+      try {
+        const response = await axios.get("http://localhost/get_user");
+        console.log(response.data);
+        const userRole = response.data.Role;
+        
+        if (userRole === 'Admin') {
+          navigate(`/admin_edit/${id}`);
+        } else {
+          navigate(`/user_view/${id}`);
+        }
+      } catch (err) {
+        console.error('Failed to fetch user role:', err);
+    }
   };
 
   const handleRefreshMovies = async () => {
