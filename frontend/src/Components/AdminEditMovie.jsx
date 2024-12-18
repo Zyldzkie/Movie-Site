@@ -19,7 +19,7 @@ const AdminEditMovie = () => {
   });
   const [error, setError] = useState(null);
 
-  const [newCastMember, setNewCastMember] = useState({ original_name: '', profile_path: '', character: '' });
+  const [newCastMember, setNewCastMember] = useState({ name: '', profile_path: '', character: '' });
   const [newPhoto, setNewPhoto] = useState({ file_path: '', description: '' });
   const [newVideo, setNewVideo] = useState({ name: '', site: '', key: '', type: '', official: false });
 
@@ -61,7 +61,7 @@ const AdminEditMovie = () => {
 
   const handleAddCastMember = () => {
     setMovieDetails({ ...movieDetails, cast: [...movieDetails.cast, newCastMember] });
-    setNewCastMember({ original_name: '', profile_path: '', character: '' });
+    setNewCastMember({ name: '', profile_path: '', character: '' });
   };
 
   const handleAddPhoto = () => {
@@ -130,18 +130,18 @@ const AdminEditMovie = () => {
           <div key={index} className="cast-item">
             <img
               src={`https://image.tmdb.org/t/p/original${member.profile_path}`}
-              alt={member.original_name}
+              alt={member.name}
               className="cast-image"
             />
             <label>Name:</label>
             <input
               type="text"
-              value={member.original_name}
+              value={member.name}
               onChange={(e) =>
                 setMovieDetails({
                   ...movieDetails,
                   cast: movieDetails.cast.map((item, i) =>
-                    i === index ? { ...item, original_name: e.target.value } : item
+                    i === index ? { ...item, name: e.target.value } : item
                   ),
                 })
               }
@@ -172,8 +172,8 @@ const AdminEditMovie = () => {
       <label>Name:</label>
       <input
         type="text"
-        value={newCastMember.original_name}
-        onChange={(e) => setNewCastMember({ ...newCastMember, original_name: e.target.value })}
+        value={newCastMember.name}
+        onChange={(e) => setNewCastMember({ ...newCastMember, name: e.target.value })}
       />
     </div>
     
