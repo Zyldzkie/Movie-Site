@@ -42,15 +42,15 @@ function Login() {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-card">
-        <div className="login-header">
+    <div className="login-container1">
+      <div className="login-card1">
+        <div className="login-header1">
           <h1>Welcome Back</h1>
           <p>Please sign in to continue</p>
         </div>
         
-        <form onSubmit={handleLogin} className="login-form">
-          <div className="form-group">
+        <form onSubmit={handleLogin} className="login-form1">
+          <div className="form-group1">
             <input
               ref={emailRef}
               type="email"
@@ -58,12 +58,12 @@ function Login() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
               required
-              className="form-input"
+              className="form-input1"
             />
             <i className="fas fa-envelope input-icon"></i>
           </div>
 
-          <div className="form-group">
+          <div className="form-group1">
             <input
               ref={passwordRef}
               type={isShowPassword ? 'text' : 'password'}
@@ -71,18 +71,18 @@ function Login() {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
               required
-              className="form-input"
+              className="form-input1"
             />
             <button
               type="button"
-              className="password-toggle"
+              className="password-toggle1"
               onClick={handleShowPassword}
             >
               {isShowPassword ? '👁️' : '👁️‍🗨️'}
             </button>
           </div>
 
-          <div className="forgot-password">
+          <div className="forgot-password1">
             <a href="#" className="forgot-link">Forgot Password?</a>
           </div>
 

@@ -1,7 +1,7 @@
 .home-page {
   display: flex; /* Sidebar on the left and main content on the right */
   height: 100vh; /* Full height for the page */
-  background-color: #2b2b2b; /* Dark background */
+  background-color: #121212; /* Dark background */
 }
 
 .sidebar {
@@ -19,7 +19,7 @@
 }
 
 .top-row {
- 
+  display: flex;
   justify-content: space-between; /* Space between items */
   align-items: center; /* Center align items vertically */
  
@@ -30,6 +30,14 @@
   gap: 20px; /* Space between the main-movies and favorites */
   flex-wrap: wrap; /* Allow wrapping on smaller screens */
   
+}
+
+.account{
+  flex:1;
+}
+
+.search{
+  flex: 3;
 }
 
 .main-movies {

@@ -297,7 +297,57 @@ const AdminEditMovie = () => {
                 })
               }
             />
-            <label>Name:</label>
+
+          </div>
+        ))}
+      </div>
+      <h2 className='cast-header'>Add New Cast Member</h2>
+      <div className='addCastMember'>
+  {/* Add New Cast Member Section */}
+  
+  
+  <div className="formGroupCast">
+    <div className="left">
+      <label>Name:</label>
+      <input
+        type="text"
+        value={newCastMember.original_name}
+        onChange={(e) => setNewCastMember({ ...newCastMember, original_name: e.target.value })}
+      />
+    </div>
+    
+    <div className="right">
+      <label>Character:</label>
+      <input
+        type="text"
+        value={newCastMember.character}
+        onChange={(e) => setNewCastMember({ ...newCastMember, character: e.target.value })}
+      />
+    </div>
+  </div>
+
+  <label>Profile Path:</label>
+  <input
+    type="text"
+    value={newCastMember.profile_path}
+    onChange={(e) => setNewCastMember({ ...newCastMember, profile_path: e.target.value })}
+  />
+  
+  <button className='addBtn' onClick={handleAddCastMember}>Add Cast Member</button>
+</div>
+
+      {/* Photos Section */}
+      <h2 className='cast-header'>Photos</h2>
+      <div className="photo-gallery">
+        {movieDetails.posters.map((poster, index) => (
+          <div key={index} className="photo-card">
+            <img
+              src={`https://image.tmdb.org/t/p/original${poster.file_path}`}
+              alt={`Poster ${index + 1}`}
+              className="poster-image"
+            />
+            {/* <label>URL:</label>
+
             <input
               type="text"
               value={result.name}
@@ -311,27 +361,74 @@ const AdminEditMovie = () => {
               }
             />
           </div>
-        ))}
-        <h2 className="cast-header">Add New Video</h2>
-        <div className="addCastMember">
-          <label>Key:</label>
-          <input
-            type="text"
-            value={newVideo.key}
-            onChange={(e) => setNewVideo({ ...newVideo, key: e.target.value })}
-          />
-          <button onClick={handleAddVideo}>Add Video</button>
 
-          <label>Is Featured:</label>
-          <input
-            type="checkbox"
-            checked={isFeatured}
-            onChange={handleCheckboxChange}
-          />
-
-          <button onClick={handleAddMovie}>Add Movie</button>
-        </div>
+      ))}
       </div>
+      <h2 className='cast-header'>Add New Photo</h2>
+      <div className='addCastMember'>
+      <label>URL:</label>
+      <input
+        type="text"
+        value={newPhoto.file_path}
+        onChange={(e) => setNewPhoto({ ...newPhoto, file_path: e.target.value })}
+      />
+      <button className='addBtn' onClick={handleAddPhoto}>Add Photo</button>
+      </div>
+
+     {/* Videos Section */}
+      <h2 className='cast-header'>Videos</h2>
+      <div className="video-gallery">
+        {movieDetails.results.map((result, index) => (
+          <div key={index} className="video-card">
+            {/* Video Iframe */}
+            <iframe
+              src={`https://www.youtube.com/embed/${result.key}`}
+              title={result.name}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="video-frame"
+            ></iframe>
+
+            {/* Video Title */}
+            <div className="video-title">
+
+              <input
+                type="text"
+                value={result.name}
+                onChange={(e) =>
+                  setMovieDetails({
+                    ...movieDetails,
+                    results: movieDetails.results.map((item, i) =>
+                      i === index ? { ...item, name: e.target.value } : item
+                    ),
+                  })
+                }
+                className="video-title-input"
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+
+
+
+      <h2 className='cast-header'>Add New Video</h2>
+      <div className='addCastMember'>
+      <label>Key:</label>
+      <input
+        type="text"
+        value={newVideo.key}
+        onChange={(e) => setNewVideo({ ...newVideo, key: e.target.value })}
+      />
+      <button className='addBtn' onClick={handleAddVideo}>Add Video</button>
+      </div>
+
+      <h2 className='cast-header'>Add Movie</h2>
+      <div className='addCastMember'>
+        <button className='addBtn' onClick={handleAddMovie}>Add Movie</button>
+      </div>
+    </div>
     </div>
   );
 };
