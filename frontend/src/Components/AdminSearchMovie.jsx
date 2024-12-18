@@ -38,6 +38,7 @@ const AdminSearchMovie = () => {
     <div className="container">
       <div className="search-card">
         <h1>Admin Search Movie</h1>
+        <p className="adminSearchDescription">Find and manage movies in the TMDB database.</p>
         <input
         className='adminSearchinput'
           type="text"
@@ -54,12 +55,13 @@ const AdminSearchMovie = () => {
         {results.map((movie) => ( 
           <div 
             key={movie.id} 
-            className="movie-card" 
+            className="movie-card1" 
             onClick={() => handleCardClick(movie.id)}
           >
-            <h2>{movie.title}</h2>
+            
             <img className="movie-poster" src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt={movie.title} />
-            <p>{movie.overview}</p>
+            <h2>{movie.title}</h2>
+            {/* <p>{movie.overview}</p> */}
           </div>
         ))}
       </div>

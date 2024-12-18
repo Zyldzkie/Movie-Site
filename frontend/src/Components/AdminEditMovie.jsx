@@ -469,6 +469,7 @@ const AdminEditMovie = () => {
               value={newVideo.name}
               onChange={(e) => setNewVideo({ ...newVideo, name: e.target.value })}
               placeholder="Enter video title"
+              className="video-title-input"
             />
           </div>
           <div className="right">
@@ -478,6 +479,7 @@ const AdminEditMovie = () => {
               value={newVideo.key}
               onChange={(e) => setNewVideo({ ...newVideo, key: e.target.value })}
               placeholder="Enter YouTube Embed Video Code"
+              className="video-title-input"
             />
           </div>
         </div>
@@ -490,6 +492,7 @@ const AdminEditMovie = () => {
               value={newVideo.site}
               onChange={(e) => setNewVideo({ ...newVideo, site: e.target.value })}
               placeholder="Enter site name"
+              className="video-title-input"
             />
           </div>
           <div className="right">
@@ -499,24 +502,32 @@ const AdminEditMovie = () => {
               value={newVideo.type}
               onChange={(e) => setNewVideo({ ...newVideo, type: e.target.value })}
               placeholder="Enter video type"
+              className="video-title-input"
             />
           </div>
         </div>
 
-        <button className='addBtn' onClick={handleAddVideo}>Add Video</button>
+        <button className='addBtn' style={{marginTop: '10px'}} onClick={handleAddVideo}>Add Video</button>
       </div>
 
-      <label>Is Featured:</label>
-          <input
-            type="checkbox"
-            checked={isFeatured}
-            onChange={handleCheckboxChange}
-          />
+      
 
       <h2 className='cast-header'>Add Movie</h2>
-      <div className='addCastMember'>
-        <button className='addBtn' onClick={handleAddMovie}>Add Movie</button>
+      <div className="featuredDiv">
+        <div className="featureMovie">
+        <label htmlFor="featureCheckbox">Feature this movie</label>
+          <input
+            type="checkbox"
+            id="featureCheckbox"
+            checked={isFeatured}
+            onChange={handleCheckboxChange}
+            className="checkFeatured"
+          />
+          
+        </div>
+        <button className="addBtn" onClick={handleAddMovie}>Add Movie</button>
       </div>
+
     </div>
   );
 };

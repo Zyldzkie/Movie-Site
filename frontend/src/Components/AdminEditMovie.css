@@ -11,6 +11,8 @@ body {
     background-color: #1a1a1d;
     width: 100%;
   height: 100%; 
+  
+  padding-bottom: 50px;
 }
 
 
@@ -226,6 +228,7 @@ h2 {
   }
   .cast-header{
     font-size: 40px;
+    text-align: center;
     color: #fff;
   }
   .cast-section {
@@ -394,7 +397,8 @@ h2 {
   }
   
   .video-title-input {
-    width: calc(100% - 20px); /* Ensure input fits within the card */
+    width: 100%;
+    margin-bottom: 20px;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -403,7 +407,15 @@ h2 {
     box-sizing: border-box; /* Prevent overlapping due to box model issues */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
+.remove-btn{
+  background-color: #fe689d;
+  transition: ease-in 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
+.remove-btn:hover{
+  background-color: #f54784;
+}
 .addBtn{
   background-color: #fe689d;
   transition: ease-in 0.3s;
@@ -459,3 +471,36 @@ h2 {
   border-color: rgba(255, 255, 255, 0.5);
   background: rgba(255, 255, 255, 0.2);
 }
+
+.featuredDiv {
+  background-color: #FFB2CF;
+  width: 90%; /* Adjust width to ensure responsiveness */
+  max-width: 600px; /* Prevent it from becoming too wide */
+  border-radius: 5px;
+  margin: 0 auto; /* Center the form */
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add some elevation for a better look */
+  text-align: center;
+  
+}
+
+
+.featureMovie {
+  display: inline-flex; /* Keep label and checkbox in one row */
+  align-items: center; /* Align vertically to the center */
+  gap: 8px; /* Add space between the checkbox and label */
+  justify-content: center; /* Center the row horizontally */
+  margin-bottom: 15px; /* Space below the featureMovie section */
+}
+
+.checkFeatured {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.featureMovie label {
+  font-size: 16px;
+  color: #333;
+}
+

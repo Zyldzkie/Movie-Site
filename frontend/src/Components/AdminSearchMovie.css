@@ -4,22 +4,34 @@
   flex-direction: column; /* Stack items vertically */
   align-items: center;
   justify-content: flex-start; /* Start from the top */
-  background-color: #282828;
+  background-color: #121212;
   padding: 20px; /* Add padding for breathing space */
 }
 
 .search-card {
-  background: rgba(255, 255, 255, 1);
+  background: #282828;
   border-radius: 12px;
-  padding: 30px;
+  padding: 20px;
   width: 100%;
   max-width: 360px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   margin-bottom: 20px; /* Space below the search card */
+  
 }
 
 .search-card h1 {
   text-align: center;
+  color: #fff;
+  font-size: 26px;
+  border-bottom: 2px solid #FFB2CF;
+  padding-bottom: 10px;
+}
+
+.adminSearchDescription{
+  font-size: 16px;
+  color: #fff;
+  text-align: center;
+ 
 }
 
 .adminSearchinput {
@@ -43,7 +55,7 @@
   background-color: #fe689d;
   border: none;
   color: #212121;
-  
+  margin-bottom: 10px;
   color: white;
   padding: 12px;
   border: none;
@@ -52,13 +64,13 @@
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .adminsearch-button:hover {
   opacity: 0.95;
   transform: translateY(-1px);
-  background-color: #e656a3;
+  background-color: #f54784;
 }
 
 .movie-list {
@@ -67,22 +79,26 @@
   gap: 20px; /* Space between movie cards */
   justify-content: center; /* Center movie cards */
   padding: 20px;
-  background: rgba(255, 255, 255, 1);
+  background-color: #282828;
   border-radius: 12px;
   width: 100%;
   max-width: 900px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  
 }
 
-.movie-card {
-  background: #fff;
+
+.movie-card1 {
+  background: #FFB2CF;
   border-radius: 12px;
-  padding: 15px;
+  padding: 10px;
+  height: 100%;
   width: 200px; /* Fixed card width */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
   transition: transform 0.3s ease;
   cursor: pointer;
+  color: #fff;
 }
 
 .movie-card:hover {
@@ -94,10 +110,10 @@
   height: 300px; /* Fixed height for uniformity */
   object-fit: cover;
   border-radius: 8px;
-  margin-bottom: 10px;
+  
 }
 
-.movie-card h2 {
+.movie-card1 h2 {
   font-size: 16px;
   color: #333;
   margin: 10px 0;

@@ -39,6 +39,7 @@
     font-weight: bold;
     color: #212121;
     margin: 0;
+
   }
   
   /* Description styling */
@@ -47,6 +48,7 @@
     color: #555555;
     line-height: 1.5;
     margin: 0;
+    text-align: justify;
   }
 
 .head{
@@ -135,11 +137,28 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  height: 610px; /* Fixed height for uniformity */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: height 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   margin-bottom: 20px;
-  
+  text-align: center;
+  height: 610px; /* Default height */
 }
+
+/* Expanded state for movie card */
+.movie-card.expanded {
+  height: auto; /* Adjust to fit content */
+}
+
+/* Styling for the "See more..." link */
+.see-more {
+  color: #FFB2CF;
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: 5px;
+}
+.see-more:hover {
+  text-decoration: underline;
+}
+
 
 /* Hover effect for movie cards */
 .movie-card:hover {
@@ -157,6 +176,7 @@
 /* Styling for the movie details (title, description, etc.) */
 .movie-details {
   padding: 15px;
+  flex-grow: 1;
 }
 
 .movie-title {
