@@ -1,20 +1,68 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./MainMoviesPanel.css";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-const MainMoviesPanel = ({ movies, onWatch, onAddToFavorites, onDeleteMovie }) => {
+const MainMoviesPanel = ({ movies, onDeleteMovie, onFavoriteUpdate, globalFavorites, setGlobalFavorites }) => {
     const navigate = useNavigate();
+    const [userId, setUserId] = useState(null);
+    const [expandedMovies, setExpandedMovies] = useState({});
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const response = await axios.get('http://localhost/get_user');
+                setUserId(response.data.UserID);
+            } catch (err) {
+                console.error('Error fetching user data:', err);
+            }
+        };
+
+        fetchUserData();
+    }, []);
+
+    const handleFavoriteToggle = async (e, movie) => {
+        e.stopPropagation(); // Prevent card click when toggling favorite
+        try {
+            const isFavorited = globalFavorites.some(fav => fav.movieId === movie.movieId);
+            
+            if (isFavorited) {
+                await axios.delete(`http://localhost/remove_favorite?movieId=${movie.movieId}&userId=${userId}`);
+                setGlobalFavorites(prev => prev.filter(fav => fav.movieId !== movie.movieId));
+            } else {
+                await axios.post('http://localhost/add_favorite', {
+                    movieId: movie.movieId,
+                    userId: userId
+                });
+                setGlobalFavorites(prev => [...prev, movie]);
+            }
+            
+            if (onFavoriteUpdate) {
+                onFavoriteUpdate();
+            }
+        } catch (err) {
+            console.error('Error toggling favorite:', err);
+        }
+    };
 
     const handleAddMovie = () => {
         navigate("/admin_search");
     };
 
-    const [expandedMovies, setExpandedMovies] = useState({});
+    const handleDeleteMovie = (e, movieId) => {
+        e.stopPropagation(); // Prevent card click when deleting
+        onDeleteMovie(movieId);
+    };
 
-    const toggleDescription = (movieId) => {
-        setExpandedMovies((prev) => ({
+    const handleCardClick = (movieId) => {
+        navigate(`/view/${movieId}`);
+    };
+
+    const toggleDescription = (e, movieId) => {
+        e.stopPropagation();
+        setExpandedMovies(prev => ({
             ...prev,
-            [movieId]: !prev[movieId], // Toggle expanded state for the specific movie
+            [movieId]: !prev[movieId]
         }));
     };
 
@@ -29,15 +77,13 @@ const MainMoviesPanel = ({ movies, onWatch, onAddToFavorites, onDeleteMovie }) =
                 {movies && movies.length > 0 ? (
                     movies.map((movie) => {
                         const isExpanded = expandedMovies[movie.movieId] || false;
+                        const isFavorited = globalFavorites.some(fav => fav.movieId === movie.movieId);
                         const descriptionPreview = movie.overview.length > 100
                             ? `${movie.overview.slice(0, 100)}...`
                             : movie.overview;
 
                         return (
-                            <div
-                                key={movie.movieId}
-                                className={`movie-card ${isExpanded ? 'expanded' : ''}`}
-                            >
+                            <div key={movie.movieId} className={`movie-card ${isExpanded ? 'expanded' : ''}`} onClick={() => handleCardClick(movie.movieId)}>
                                 <img
                                     src={`${movie.posterPath || 'default-poster.jpg'}`}
                                     alt={movie.title}
@@ -50,27 +96,21 @@ const MainMoviesPanel = ({ movies, onWatch, onAddToFavorites, onDeleteMovie }) =
                                         {movie.overview.length > 100 && (
                                             <span
                                                 className="see-more"
-                                                onClick={() => toggleDescription(movie.movieId)}
+                                                onClick={(e) => toggleDescription(e, movie.movieId)}
                                             >
                                                 {isExpanded ? " See less" : " See more"}
                                             </span>
                                         )}
                                     </p>
                                     <button
-                                        className="watch-button"
-                                        onClick={() => onWatch(movie.movieId)}
+                                        className={`favorite-button ${isFavorited ? 'favorited' : ''}`}
+                                        onClick={(e) => handleFavoriteToggle(e, movie)}
                                     >
-                                        Watch
+                                        {isFavorited ? 'Remove from Favorites' : 'Add to Favorites'}
                                     </button>
                                     <button
                                         className="watch-button"
-                                        onClick={() => onAddToFavorites(movie)}
-                                    >
-                                        Add to Favorites
-                                    </button>
-                                    <button
-                                        className="watch-button"
-                                        onClick={() => onDeleteMovie(movie.movieId)}
+                                        onClick={(e) => handleDeleteMovie(e, movie.movieId)}
                                     >
                                         Delete
                                     </button>

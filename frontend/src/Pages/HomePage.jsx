@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import NavBar from '../Components/NavBar';
 import FeaturedMovies from '../Components/FeaturedMovies';
 import MainMoviesPanel from '../Components/MainMoviesPanel';
@@ -12,6 +12,7 @@ import './HomePage.css';
 axios.defaults.withCredentials = true;
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const [movieData, setMovieData] = useState({
     allMovies: [],
@@ -19,6 +20,7 @@ const HomePage = () => {
     favorites: [],
     searchTerm: ''
   });
+  const [globalFavorites, setGlobalFavorites] = useState([]);
 
   const fetchMovies = async () => {
     try {
@@ -78,8 +80,13 @@ const HomePage = () => {
     }
   };
 
-  const handleWatch = (id) => {
-    alert(`Watching movie with ID: ${id}`);
+    const handleWatch = async (id) => {
+      try {
+        const response = await axios.get("http://localhost/get_user");
+        navigate(`/view/${id}`);
+      } catch (err) {
+        console.error('Failed to fetch user role:', err);
+    }
   };
 
   const handleRefreshMovies = async () => {
@@ -99,6 +106,16 @@ const HomePage = () => {
       }
     } catch (err) {
       console.error("Error deleting movie:", err);
+    }
+  };
+
+  const handleFavoriteUpdate = async () => {
+    try {
+      const userResponse = await axios.get('http://localhost/get_user');
+      const favoritesResponse = await axios.get(`http://localhost/get_favorite?userId=${userResponse.data.UserID}`);
+      setGlobalFavorites(favoritesResponse.data.favorites || []);
+    } catch (err) {
+      console.error('Error updating favorites:', err);
     }
   };
 
@@ -132,11 +149,15 @@ const HomePage = () => {
               onAddToFavorites={handleAddToFavorites}
               onDeleteMovie={handleDeleteMovie}
               refreshMovies={handleRefreshMovies}
+              onFavoriteUpdate={handleFavoriteUpdate}
+              setGlobalFavorites={setGlobalFavorites}
+              globalFavorites={globalFavorites}
             />
           </div>
           <div className="favorites">
             <FavoritesPanel 
-              favorites={movieData.favorites}
+              globalFavorites={globalFavorites}
+              setGlobalFavorites={setGlobalFavorites}
             />
           </div>
         </div>
