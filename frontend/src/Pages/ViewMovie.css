@@ -85,8 +85,13 @@
 
 .video-card{
   display: flex;
-  flex: 1;
-  
+  flex-direction: column;      /* Stack content vertically inside each card */
+  width: 300px;                /* Fixed width for each video card */
+  height: 450px;               /* Fixed height for each video card */
+  background-color: #333;      /* Background color for the video card */
+  border-radius: 8px;          /* Optional: adds rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: adds shadow */
+  overflow: hidden; 
 }
 
 .admin-controls {
