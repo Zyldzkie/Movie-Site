@@ -161,6 +161,7 @@ h2 {
     flex-direction: column;
     gap: 10px;
     color: white;
+    margin-right: 20px;
   }
   
   .poster-img {

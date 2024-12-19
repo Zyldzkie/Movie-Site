@@ -1,74 +1,149 @@
 .featured-movies {
   padding: 20px;
   background-color: #282828;
-  border-radius: 20px;
-  text-align: center;
   margin: 20px;
-  max-width: 100%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
 }
 
-.featured-movies .featHeader{
-  border-bottom: 2px solid #FFB2CF;
+.featured-movies-poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.featured-movies h1 {
-  font-size: 28px;
+.featHeader {
+  font-size: 2rem;
+  font-weight: bold;
   color: #fff;
   margin-bottom: 20px;
-  text-align: start;
-
+  border-bottom: 2px solid #FFB2CF;
   padding-bottom: 10px;
-  width: 100%;
 }
 
-.featured-movies-grid {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  align-items: stretch; /* Ensures all cards are the same height */
-}
-
-.featured-movie-card {
-  background: #fff;
-  border-radius: 10px;
+.carousel-container {
+  position: relative;
+  max-width: 1200px;
+  height: 600px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  max-width: 200px; /* Adjust as necessary */
-  height: 450px; /* Ensure consistent height for all cards */
+  margin: 0 auto;
+}
+
+.carousel-content {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.carousel-item {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: all 0.5s ease;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Align content evenly */
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
 }
 
-.featured-movie-card:hover {
-  transform: scale(1.05);
+.carousel-item.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.carousel-movie-poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
 }
 
-.featured-movie-posterr {
-  width: 100%;
-  height: 300px; /* Set a fixed height for the poster */
-  object-fit: cover; /* Maintain aspect ratio and fill the area */
-  border-bottom: 2px solid #282828;
+.carousel-item:hover .carousel-movie-poster {
+  transform: scale(1.02);
 }
 
-.featured-movie-title {
-  font-size: 16px;
-  padding: 10px;
-  color: #333;
-  flex-grow: 1; /* Allows the title area to fill space if needed */
-  display: flex;
-  align-items: center; /* Center align text vertically */
-  justify-content: center; /* Center align text horizontally */
-  text-align: center; /* Ensure multi-line titles look good */
-}
-
-.loading,
-.error {
-  font-size: 20px;
-  color: #333;
+.carousel-movie-info {
+  margin-top: 15px;
   text-align: center;
+  color: white;
+}
+
+.carousel-movie-title {
+  font-size: 1.5rem;
+  margin: 0;
+  color: white;
+}
+
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 24px;
+  z-index: 2;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.carousel-button:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.prev {
+  left: 20px;
+}
+
+.next {
+  right: 20px;
+}
+
+.carousel-dots {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 2;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: none;
+  padding: 0;
+  margin: 0 5px;
+}
+
+.dot.active {
+  background: #FFB2CF;
+  transform: scale(1.2);
+}
+
+@media (max-width: 768px) {
+  .carousel-container {
+    height: 450px;
+  }
+
+  .carousel-movie-poster {
+    max-width: 280px;
+  }
 }
 

@@ -6,16 +6,12 @@ import axios from 'axios';
 const MainMoviesPanel = ({ movies, onDeleteMovie, onFavoriteUpdate, globalFavorites, setGlobalFavorites }) => {
     const navigate = useNavigate();
     const [userId, setUserId] = useState(null);
-    const [role, setRole] = useState(null);
-    const [expandedMovies, setExpandedMovies] = useState({});
 
     useEffect(() => {
         const fetchUserData = async () => {
             try {
                 const response = await axios.get('http://localhost/get_user');
-                console.log(response.data);
                 setUserId(response.data.UserID);
-                setRole(response.data.Role);
             } catch (err) {
                 console.error('Error fetching user data:', err);
             }
@@ -25,7 +21,7 @@ const MainMoviesPanel = ({ movies, onDeleteMovie, onFavoriteUpdate, globalFavori
     }, []);
 
     const handleFavoriteToggle = async (e, movie) => {
-        e.stopPropagation(); // Prevent card click when toggling favorite
+        e.stopPropagation();
         try {
             const isFavorited = globalFavorites.some(fav => fav.movieId === movie.movieId);
             
@@ -39,10 +35,6 @@ const MainMoviesPanel = ({ movies, onDeleteMovie, onFavoriteUpdate, globalFavori
                 });
                 setGlobalFavorites(prev => [...prev, movie]);
             }
-            
-            if (onFavoriteUpdate) {
-                onFavoriteUpdate();
-            }
         } catch (err) {
             console.error('Error toggling favorite:', err);
         }
@@ -53,7 +45,7 @@ const MainMoviesPanel = ({ movies, onDeleteMovie, onFavoriteUpdate, globalFavori
     };
 
     const handleDeleteMovie = (e, movieId) => {
-        e.stopPropagation(); // Prevent card click when deleting
+        e.stopPropagation();
         onDeleteMovie(movieId);
     };
 
@@ -61,39 +53,27 @@ const MainMoviesPanel = ({ movies, onDeleteMovie, onFavoriteUpdate, globalFavori
         navigate(`/view/${movieId}`);
     };
 
-    const toggleDescription = (e, movieId) => {
-        e.stopPropagation();
-        setExpandedMovies(prev => ({
-            ...prev,
-            [movieId]: !prev[movieId]
-        }));
-    };
-
     return (
         <div className="main-movies-panel">
-            <div className="head">
+            <div className='head'>
                 <h2 className="movies-header">Movies</h2>
-                {role === 'Admin' && (
-                    <button className="addMovieBtn" onClick={handleAddMovie}>
-                        Add Movie
-                    </button>
-                )}
+                <button className='addMovieBtn' onClick={handleAddMovie}>Add Movie</button>
             </div>
-    
+
             <div className="movies-cards">
                 {movies && movies.length > 0 ? (
                     movies.map((movie) => {
-                        const isExpanded = expandedMovies[movie.movieId] || false;
                         const isFavorited = globalFavorites.some(fav => fav.movieId === movie.movieId);
                         const descriptionPreview = movie.overview.length > 100
                             ? `${movie.overview.slice(0, 100)}...`
                             : movie.overview;
-    
+
                         return (
-                            <div
-                                key={movie.movieId}
-                                className={`movie-card ${isExpanded ? 'expanded' : ''}`}
+                            <div 
+                                key={movie.movieId} 
+                                className="movie-card"
                                 onClick={() => handleCardClick(movie.movieId)}
+                                style={{ cursor: 'pointer' }}
                             >
                                 <img
                                     src={`${movie.posterPath || 'default-poster.jpg'}`}
@@ -103,15 +83,10 @@ const MainMoviesPanel = ({ movies, onDeleteMovie, onFavoriteUpdate, globalFavori
                                 <div className="movie-details">
                                     <h3 className="movie-title">{movie.title}</h3>
                                     <p className="movie-description">
-                                        {isExpanded ? movie.overview : descriptionPreview}
-                                        {movie.overview.length > 100 && (
-                                            <span
-                                                className="see-more"
-                                                onClick={(e) => toggleDescription(e, movie.movieId)}
-                                            >
-                                                {isExpanded ? " See less" : " See more"}
-                                            </span>
-                                        )}
+                                        {descriptionPreview}
+                                        <span className="see-more">
+                                            See more
+                                        </span>
                                     </p>
                                     <button
                                         className={`favorite-button ${isFavorited ? 'favorited' : ''}`}
@@ -135,7 +110,6 @@ const MainMoviesPanel = ({ movies, onDeleteMovie, onFavoriteUpdate, globalFavori
             </div>
         </div>
     );
-    
 };
 
 export default MainMoviesPanel;
