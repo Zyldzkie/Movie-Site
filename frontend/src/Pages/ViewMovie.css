@@ -56,17 +56,37 @@
   color: #ccc;
 }
 
+.cast-item h3{
+  color: #fff;
+}
+
+.cast-item p{
+  color: #000;
+}
+
+.poster-image{
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .video-gallery {
-  display: grid;
+  display: flex;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
   padding: 20px;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .video-title {
   color: white;
   text-align: center;
   margin-top: 10px;
+}
+
+.video-card{
+  display: flex;
+  flex: 1;
+  
 }
 
 .admin-controls {
@@ -190,6 +210,19 @@
   border: 10px solid #FFB2CF;
   min-height: 500px;
 }
+.photo-gallery {
+  display: flex;               /* Aligns the photo cards in a row */
+  flex-wrap: wrap;             /* Allows cards to wrap to the next line if there's not enough space */
+  gap: 10px;                   /* Adds space between the photo cards */
+}
+
+.photo-card {
+
+  box-sizing: border-box;      /* Ensures padding and margin are included in the width */
+  display: flex;
+  flex-direction: column;      /* Aligns content vertically within the card */
+  align-items: center;         /* Centers content within each card */
+} 
 
 .cast-item, .photo-card, .video-card {
   background-color: #FFB2CF;

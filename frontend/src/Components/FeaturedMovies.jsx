@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './FeaturedMovies.css';
 import axios from 'axios';
+import { GiTicket } from 'react-icons/gi';
+
 
 const FeaturedMovies = () => {
   const [featured, setFeatured] = useState([]);
@@ -66,7 +68,7 @@ const FeaturedMovies = () => {
 
   return (
     <div className="featured-movies">
-      <h1 className='featHeader'>Featured Movies</h1>
+      <h1 className='featHeader'><GiTicket className="movies-icon" />Featured Movies</h1>
       <div className="carousel-container">
         <button className="carousel-button prev" onClick={prevSlide}>❮</button>
         <div className="carousel-content">

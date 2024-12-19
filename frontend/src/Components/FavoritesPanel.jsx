@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './FavoritesPanel.css';
+import { FaHeart } from 'react-icons/fa';
+
 
 const FavoritesPanel = ({ globalFavorites, setGlobalFavorites }) => {
   const [userId, setUserId] = useState(null);
@@ -40,7 +42,7 @@ const FavoritesPanel = ({ globalFavorites, setGlobalFavorites }) => {
 
   return (
     <div className="favorites-panel">
-      <h2 className="favorites-header">Favorites</h2>
+      <h2 className="favorites-header"><FaHeart className="movies-icon" />Favorites</h2>
       {(!globalFavorites || globalFavorites.length === 0) ? (
         <div className="no-favorites-message">
           <p>No favorites added yet.</p>
