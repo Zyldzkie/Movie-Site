@@ -1,120 +1,134 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useReducer, useEffect } from 'react';
 import './Register.css';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import useDebounce from '../hooks/useDebounce';
 
+const initialState = {
+  email: '',
+  password: '',
+  confirmpassword: '',
+  firstName: '',
+  emailError: '',
+  passwordError: '',
+  confirmPasswordError: '',
+  message: '',
+  hasErrors: false,
+  status: 'idle'
+};
+
+function formReducer(state, action) {
+  switch (action.type) {
+    case 'SET_FIELD':
+      return {
+        ...state,
+        [action.field]: action.value
+      };
+    case 'SET_ERROR':
+      return {
+        ...state,
+        [action.field]: action.error,
+        hasErrors: true
+      };
+    case 'CLEAR_ERROR':
+      return {
+        ...state,
+        [action.field]: '',
+        hasErrors: false
+      };
+    case 'SET_STATUS':
+      return {
+        ...state,
+        status: action.status
+      };
+    case 'RESET_FORM':
+      return initialState;
+    default:
+      return state;
+  }
+}
+
 function Register() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmpassword, setconfirmPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [confirmPasswordError, setConfirmPasswordError] = useState('');
-  const [message, setMessage] = useState('');
-  const [hasErrors, setHasErrors] = useState(false);
+  const [state, dispatch] = useReducer(formReducer, initialState);
+  const navigate = useNavigate();
 
   const emailRef = useRef();
   const passwordRef = useRef();
   const fNameRef = useRef();
-  const [status, setStatus] = useState('idle');
-  const navigate = useNavigate();
 
-  // Debounce values
-  const debouncedEmail = useDebounce(email, 500);
-  const debouncedPassword = useDebounce(password, 500);
-  const debouncedConfirmPassword = useDebounce(confirmpassword, 500);
+  const debouncedEmail = useDebounce(state.email, 500);
+  const debouncedPassword = useDebounce(state.password, 500);
 
-  // Check for any errors
-  useEffect(() => {
-    setHasErrors(!!(emailError || passwordError || confirmPasswordError));
-  }, [emailError, passwordError, confirmPasswordError]);
-
-  // Email validation
   useEffect(() => {
     if (debouncedEmail) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(debouncedEmail)) {
-        setEmailError('Please enter a valid email address');
+        dispatch({ 
+          type: 'SET_ERROR', 
+          field: 'emailError', 
+          error: 'Please enter a valid email address' 
+        });
       } else {
-        setEmailError('');
+        dispatch({ 
+          type: 'CLEAR_ERROR', 
+          field: 'emailError' 
+        });
       }
-    } else {
-      setEmailError('');
     }
   }, [debouncedEmail]);
 
-  // Password validation
   useEffect(() => {
     if (debouncedPassword) {
       if (debouncedPassword.length < 6) {
-        setPasswordError('Password must be at least 6 characters long');
+        dispatch({
+          type: 'SET_ERROR',
+          field: 'passwordError',
+          error: 'Password must be at least 6 characters long'
+        });
       } else {
-        setPasswordError('');
+        dispatch({
+          type: 'CLEAR_ERROR',
+          field: 'passwordError'
+        });
       }
-    } else {
-      setPasswordError('');
     }
   }, [debouncedPassword]);
 
-  // Confirm password validation
-  useEffect(() => {
-    if (debouncedConfirmPassword) {
-      if (debouncedConfirmPassword !== password) {
-        setConfirmPasswordError('Passwords do not match');
-      } else {
-        setConfirmPasswordError('');
-      }
-    } else {
-      setConfirmPasswordError('');
-    }
-  }, [debouncedConfirmPassword, password]);
-
-  const handleOnChange = (event, type) => {
-    const value = event.target.value;
-    switch (type) {
-      case 'email':
-        setEmail(value);
-        break;
-      case 'password':
-        setPassword(value);
-        break;
-      case 'firstName':
-        setFirstName(value);
-        break;
-      case 'confirmpassword':
-        setconfirmPassword(value);
-        break;
-      default:
-        break;
-    }
+  const handleOnChange = (event, field) => {
+    dispatch({
+      type: 'SET_FIELD',
+      field,
+      value: event.target.value
+    });
   };
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    if (hasErrors || !email || !password || !confirmpassword || !firstName) {
+    if (state.hasErrors || !state.email || !state.password || !state.confirmpassword || !state.firstName) {
       return;
     }
-    
-    setStatus('loading');
+
+    dispatch({ type: 'SET_STATUS', status: 'loading' });
 
     try {
       const response = await axios.post('http://localhost/register', {
-        name: firstName,
-        email: email,
-        password: password,
-        conf_pass: confirmpassword
+        name: state.firstName,
+        email: state.email,
+        password: state.password,
+        conf_pass: state.confirmpassword
       });
 
       if (response.data) {
         navigate("/");
       }
     } catch (error) {
-      console.error('Error sending request:', error);
-      setMessage('An error occurred while sending the request.');
+      dispatch({
+        type: 'SET_ERROR',
+        field: 'message',
+        error: 'An error occurred while sending the request.'
+      });
     } finally {
-      setStatus('idle');
+      dispatch({ type: 'SET_STATUS', status: 'idle' });
     }
   };
 
@@ -131,20 +145,20 @@ function Register() {
             <input
               ref={emailRef}
               type="email"
-              value={email}
+              value={state.email}
               onChange={(e) => handleOnChange(e, 'email')}
               placeholder="Email"
               required
               className="form-input2"
             />
-            {emailError && <span className="error-message">{emailError}</span>}
+            {state.emailError && <span className="error-message">{state.emailError}</span>}
           </div>
 
           <div className="form-group2">
             <input
               ref={fNameRef}
               type="text"
-              value={firstName}
+              value={state.firstName}
               onChange={(e) => handleOnChange(e, 'firstName')}
               placeholder="Name"
               required
@@ -156,33 +170,42 @@ function Register() {
             <input
               ref={passwordRef}
               type="password"
-              value={password}
+              value={state.password}
               onChange={(e) => handleOnChange(e, 'password')}
               placeholder="Password"
               required
               className="form-input2"
             />
-            {passwordError && <span className="error-message">{passwordError}</span>}
+            {state.passwordError && <span className="error-message">{state.passwordError}</span>}
           </div>
 
           <div className="form-group2">
             <input
               type="password"
-              value={confirmpassword}
+              value={state.confirmpassword}
               onChange={(e) => handleOnChange(e, 'confirmpassword')}
               placeholder="Confirm Password"
               required
               className="form-input2"
             />
-            {confirmPasswordError && <span className="error-message">{confirmPasswordError}</span>}
+            {state.confirmPasswordError && (
+              <span className="error-message">{state.confirmPasswordError}</span>
+            )}
           </div>
 
           <button
             type="submit"
             className="register-button"
-            disabled={hasErrors || !email || !password || !confirmpassword || !firstName || status === 'loading'}
+            disabled={
+              state.hasErrors || 
+              !state.email || 
+              !state.password || 
+              !state.confirmpassword || 
+              !state.firstName || 
+              state.status === 'loading'
+            }
           >
-            {status === 'loading' ? (
+            {state.status === 'loading' ? (
               <span className="loading-spinner"></span>
             ) : (
               'Create Account'
