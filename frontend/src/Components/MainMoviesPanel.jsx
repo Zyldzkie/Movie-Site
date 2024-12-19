@@ -94,12 +94,14 @@ const MainMoviesPanel = ({ movies, onDeleteMovie, onFavoriteUpdate, globalFavori
                                     >
                                         {isFavorited ? 'Remove from Favorites' : 'Add to Favorites'}
                                     </button>
-                                    <button
-                                        className="watch-button"
-                                        onClick={(e) => handleDeleteMovie(e, movie.movieId)}
-                                    >
-                                        Delete
-                                    </button>
+                                    {role === 'Admin' && (
+                                        <button
+                                            className="watch-button"
+                                            onClick={(e) => handleDeleteMovie(e, movie.movieId)}
+                                        >
+                                            Delete
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         );
