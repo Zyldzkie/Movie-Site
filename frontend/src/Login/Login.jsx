@@ -3,6 +3,8 @@ import './Login.css';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import useDebounce from '../hooks/useDebounce';
+import { FaMoon, FaSun } from 'react-icons/fa';
+import { useTheme } from '../context/ThemeContext';
 
 axios.defaults.withCredentials = true;
 
@@ -17,6 +19,8 @@ function Login() {
   const debouncedEmail = useDebounce(email, 500);
 
   const navigate = useNavigate();
+
+  const { isDark, toggleTheme } = useTheme();
 
   useEffect(() => {
     if (debouncedEmail) {
@@ -57,8 +61,11 @@ function Login() {
   };
 
   return (
-    <div className="login-container1">
-      <div className="login-card1">
+    <div className={`login-container1 ${isDark ? 'dark' : 'light'}`}>
+      <button onClick={toggleTheme} className="theme-toggle">
+        {isDark ? <FaSun /> : <FaMoon />}
+      </button>
+      <div className={`login-card1 ${isDark ? 'dark' : 'light'}`}>
         <div className="login-header1">
           <h1>Welcome Back</h1>
           <p>Please sign in to continue</p>

@@ -3,6 +3,8 @@ import './Register.css';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import useDebounce from '../hooks/useDebounce';
+import { FaMoon, FaSun } from 'react-icons/fa';
+import { useTheme } from '../context/ThemeContext';
 
 const initialState = {
   email: '',
@@ -51,6 +53,7 @@ function formReducer(state, action) {
 function Register() {
   const [state, dispatch] = useReducer(formReducer, initialState);
   const navigate = useNavigate();
+  const { isDark, toggleTheme } = useTheme();
 
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -133,8 +136,11 @@ function Register() {
   };
 
   return (
-    <div className="register-container">
-      <div className="register-card">
+    <div className={`register-container ${isDark ? 'dark' : 'light'}`}>
+      <button onClick={toggleTheme} className="theme-toggle">
+        {isDark ? <FaSun /> : <FaMoon />}
+      </button>
+      <div className={`register-card ${isDark ? 'dark' : 'light'}`}>
         <div className="register-header">
           <h1>Create Account</h1>
           <p>Please fill in your details</p>
