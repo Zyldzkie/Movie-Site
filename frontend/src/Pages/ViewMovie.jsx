@@ -106,7 +106,7 @@ const ViewMovie = () => {
           movieId: movieId,
           userId: userId,
           name: member.name,
-          characterName: member.character,
+          characterName: member.characterName,
           url: member.url
         })),
 
