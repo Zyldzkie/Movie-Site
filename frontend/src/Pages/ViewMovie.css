@@ -206,7 +206,6 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  background-color: rgba(0, 0, 0, 0.8);
   padding: 20px;
   border-radius: 10px;
   width: 100%;
@@ -214,7 +213,29 @@
   margin-top: 30px;
   border: 10px solid #FFB2CF;
   min-height: 500px;
+  position: relative;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
+
+.movie-cardto::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 0;
+}
+
+.poster-container, .details {
+  position: relative;
+  z-index: 1;
+}
+
 .photo-gallery {
   display: flex;               /* Aligns the photo cards in a row */
   flex-wrap: wrap;             /* Allows cards to wrap to the next line if there's not enough space */
