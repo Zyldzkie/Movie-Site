@@ -1,22 +1,42 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import './Login.css';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import useDebounce from '../hooks/useDebounce';
 
 axios.defaults.withCredentials = true;
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isFieldsDirty, setIsFieldsDirty] = useState(false);
+  const [emailError, setEmailError] = useState('');
   const emailRef = useRef();
   const passwordRef = useRef();
   const [status, setStatus] = useState('idle');
+  
+  const debouncedEmail = useDebounce(email, 500);
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (debouncedEmail) {
+      validateEmail(debouncedEmail);
+    }
+  }, [debouncedEmail]);
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setEmailError('Please enter a valid email address');
+    } else {
+      setEmailError('');
+    }
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
+    if (emailError) return;
+    
     const data = { email: email, password: password };
     setStatus('loading');
 
@@ -55,6 +75,7 @@ function Login() {
               required
               className="form-input1"
             />
+            {emailError && <span className="error-message">{emailError}</span>}
           </div>
 
           <div className="form-group1">
@@ -76,7 +97,7 @@ function Login() {
           <button
             type="submit"
             className="login-button"
-            disabled={status === 'loading'}
+            disabled={status === 'loading' || emailError}
           >
             {status === 'loading' ? (
               <span className="loading-spinner"></span>
