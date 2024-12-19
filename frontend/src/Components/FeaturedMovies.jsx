@@ -32,14 +32,13 @@ const FeaturedMovies = () => {
     searchFeatured();
   }, []); 
 
-  // Auto-scroll effect
   useEffect(() => {
     if (featured.length > 0) {
       const timer = setInterval(() => {
         setCurrentIndex((prevIndex) => 
           prevIndex === featured.length - 1 ? 0 : prevIndex + 1
         );
-      }, 5000); // Change slide every 5 seconds
+      }, 5000);
 
       return () => clearInterval(timer);
     }
@@ -61,10 +60,6 @@ const FeaturedMovies = () => {
     );
   };
 
-  const goToSlide = (index) => {
-    setCurrentIndex(index);
-  };
-
   if (loading) return <p>Loading featured movies...</p>;
   if (error) return <p>{error}</p>;
   if (featured.length === 0) return <p>No featured movies available at the moment.</p>;
@@ -77,17 +72,36 @@ const FeaturedMovies = () => {
         <div className="carousel-content">
           {featured.map((movie, index) => (
             <div 
-              key={movie.movieId} 
+              key={movie.movieId}
               className={`carousel-item ${index === currentIndex ? 'active' : ''}`}
               onClick={() => handleCardClick(movie.movieId)}
               style={{ cursor: 'pointer' }}
             >
               <img
-                className="carousel-movie-poster"
-                src={movie.backdropPath || 'default-poster.jpg'}
+                className="carousel-movie-backdrop"
+                src={movie.backdropPath || 'default-backdrop.jpg'}
                 alt={movie.title}
               />
-              <h3 className="featured-movie-title">{movie.title}</h3>
+              <div className="carousel-overlay">
+                <div className="movie-details">
+                  <h2 className="movie-title">{movie.title}</h2>
+                  <div className="movie-meta">
+                    <span className="release-date">
+                      {new Date(movie.release_date).getFullYear()}
+                    </span>
+                    <span className="rating">
+                      ★ {movie.vote_average}
+                    </span>
+                    <span className="popularity">
+                      Popularity: {Math.round(movie.popularity)}
+                    </span>
+                  </div>
+                  <p className="movie-overview">{movie.overview}</p>
+                  <button className="watch-now-btn" onClick={() => handleCardClick(movie.movieId)}>
+                    Watch Now
+                  </button>
+                </div>
+              </div>
             </div>
           ))}
         </div>
