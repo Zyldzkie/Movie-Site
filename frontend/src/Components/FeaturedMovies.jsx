@@ -87,10 +87,10 @@ const FeaturedMovies = () => {
                   <h2 className="movie-title">{movie.title}</h2>
                   <div className="movie-meta">
                     <span className="release-date">
-                      {new Date(movie.release_date).getFullYear()}
+                      {new Date(movie.releaseDate).getFullYear()}
                     </span>
                     <span className="rating">
-                      ★ {movie.vote_average}
+                      ★ {movie.voteAverage.toFixed(1)}
                     </span>
                     <span className="popularity">
                       Popularity: {Math.round(movie.popularity)}
