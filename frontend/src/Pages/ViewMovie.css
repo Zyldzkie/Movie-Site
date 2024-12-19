@@ -11,6 +11,10 @@
   margin-bottom: 20px;
 }
 
+.body{
+  background-color: #121212;
+}
+
 .movie-info {
   color: white;
   font-size: 1.1em;
