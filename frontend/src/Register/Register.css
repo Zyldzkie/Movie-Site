@@ -3,11 +3,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #ee78bb, #e656a3, #b71f64);
+  background-color: #121212;
 }
 
 .register-card {
-  background: rgba(255, 255, 255, 1);
+  background-color: #282828;
   border-radius: 12px;
   padding: 30px;
   width: 100%;
@@ -21,14 +21,14 @@
 }
 
 .register-header h1 {
-  color: #e656a3;
+  color: #FFB2CF;
   font-size: 24px;
   margin-bottom: 5px;
   font-weight: 600;
 }
 
 .register-header p {
-  color: #666;
+  color: #fff;
   font-size: 14px;
 }
 
@@ -39,7 +39,7 @@
 }
 
 .register-button {
-  background: #e656a3;
+  background: #fe689d;
   color: white;
   padding: 12px;
   border: none;
@@ -51,9 +51,14 @@
   margin-top: 10px;
 }
 
+.login-prompt2{
+  color: #fff;
+}
+
 .register-button:hover {
   opacity: 0.95;
   transform: translateY(-1px);
+  background-color: #f54784;
 }
 
 .register-button:disabled {
@@ -66,7 +71,7 @@
   text-align: center;
   margin-top: 20px;
   font-size: 13px;
-  color: #666;
+  color: #fff;
 }
 
 
@@ -111,7 +116,7 @@
 }
 
 .login-link2 {
-  color: #e656a3;
+  color: #FFB2CF;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s ease;
