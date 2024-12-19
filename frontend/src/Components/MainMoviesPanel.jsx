@@ -6,12 +6,14 @@ import axios from 'axios';
 const MainMoviesPanel = ({ movies, onDeleteMovie, onFavoriteUpdate, globalFavorites, setGlobalFavorites }) => {
     const navigate = useNavigate();
     const [userId, setUserId] = useState(null);
+    const [role, setRole] = useState(null);
 
     useEffect(() => {
         const fetchUserData = async () => {
             try {
                 const response = await axios.get('http://localhost/get_user');
                 setUserId(response.data.UserID);
+                setRole(response.data.Role);
             } catch (err) {
                 console.error('Error fetching user data:', err);
             }
@@ -57,7 +59,9 @@ const MainMoviesPanel = ({ movies, onDeleteMovie, onFavoriteUpdate, globalFavori
         <div className="main-movies-panel">
             <div className='head'>
                 <h2 className="movies-header">Movies</h2>
-                <button className='addMovieBtn' onClick={handleAddMovie}>Add Movie</button>
+                {role === 'Admin' && ( // Conditionally render the Add Movie button
+                    <button className='addMovieBtn' onClick={handleAddMovie}>Add Movie</button>
+                )}
             </div>
 
             <div className="movies-cards">
