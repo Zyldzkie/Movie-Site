@@ -12,7 +12,16 @@
   margin-bottom: 20px;
   border-bottom: 2px solid #FFB2CF;
   padding-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
+
+.movies-icon {
+  font-size: 2rem; /* Scales the icon size relative to the text */
+  color: #fff; /* Customize the icon color */
+}
+
 
 .carousel-container {
   position: relative;
@@ -67,6 +76,11 @@
   font-size: 2.5rem;
   margin-bottom: 15px;
   color: white;
+}
+
+.movie-details h2{
+  color: #fff;
+  font-size: 40px;
 }
 
 .movie-meta {

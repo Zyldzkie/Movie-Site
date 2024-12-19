@@ -313,6 +313,7 @@ const ViewMovie = () => {
                   />
                   <input
                     type="text"
+                    
                     value={member.characterName}
                     onChange={(e) => {
                       const updatedCast = [...movieDetails.cast];
@@ -329,8 +330,8 @@ const ViewMovie = () => {
                 </>
               ) : (
                 <>
-                  <h3>{member.name}</h3>
-                  <p>{member.characterName}</p>
+                  <h3 className="charName">{member.name}</h3>
+                  <p >{member.characterName}</p>
                 </>
               )}
             </div>

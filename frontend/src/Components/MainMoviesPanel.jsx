@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import "./MainMoviesPanel.css";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { FaFilm } from 'react-icons/fa';
+
 
 const MainMoviesPanel = ({ movies, onDeleteMovie, onFavoriteUpdate, globalFavorites, setGlobalFavorites }) => {
     const navigate = useNavigate();
@@ -58,7 +60,9 @@ const MainMoviesPanel = ({ movies, onDeleteMovie, onFavoriteUpdate, globalFavori
     return (
         <div className="main-movies-panel">
             <div className='head'>
-                <h2 className="movies-header">Movies</h2>
+            <h2 className="movies-header">
+            <FaFilm className="movies-icon" /> Movies
+            </h2>
                 {role === 'Admin' && ( // Conditionally render the Add Movie button
                     <button className='addMovieBtn' onClick={handleAddMovie}>Add Movie</button>
                 )}
