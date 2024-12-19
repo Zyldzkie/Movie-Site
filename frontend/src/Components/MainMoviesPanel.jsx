@@ -6,13 +6,16 @@ import axios from 'axios';
 const MainMoviesPanel = ({ movies, onDeleteMovie, onFavoriteUpdate, globalFavorites, setGlobalFavorites }) => {
     const navigate = useNavigate();
     const [userId, setUserId] = useState(null);
+    const [role, setRole] = useState(null);
     const [expandedMovies, setExpandedMovies] = useState({});
 
     useEffect(() => {
         const fetchUserData = async () => {
             try {
                 const response = await axios.get('http://localhost/get_user');
+                console.log(response.data);
                 setUserId(response.data.UserID);
+                setRole(response.data.Role);
             } catch (err) {
                 console.error('Error fetching user data:', err);
             }
@@ -68,11 +71,15 @@ const MainMoviesPanel = ({ movies, onDeleteMovie, onFavoriteUpdate, globalFavori
 
     return (
         <div className="main-movies-panel">
-            <div className='head'>
+            <div className="head">
                 <h2 className="movies-header">Movies</h2>
-                <button className='addMovieBtn' onClick={handleAddMovie}>Add Movie</button>
+                {role === 'Admin' && (
+                    <button className="addMovieBtn" onClick={handleAddMovie}>
+                        Add Movie
+                    </button>
+                )}
             </div>
-
+    
             <div className="movies-cards">
                 {movies && movies.length > 0 ? (
                     movies.map((movie) => {
@@ -81,9 +88,13 @@ const MainMoviesPanel = ({ movies, onDeleteMovie, onFavoriteUpdate, globalFavori
                         const descriptionPreview = movie.overview.length > 100
                             ? `${movie.overview.slice(0, 100)}...`
                             : movie.overview;
-
+    
                         return (
-                            <div key={movie.movieId} className={`movie-card ${isExpanded ? 'expanded' : ''}`} onClick={() => handleCardClick(movie.movieId)}>
+                            <div
+                                key={movie.movieId}
+                                className={`movie-card ${isExpanded ? 'expanded' : ''}`}
+                                onClick={() => handleCardClick(movie.movieId)}
+                            >
                                 <img
                                     src={`${movie.posterPath || 'default-poster.jpg'}`}
                                     alt={movie.title}
@@ -124,6 +135,7 @@ const MainMoviesPanel = ({ movies, onDeleteMovie, onFavoriteUpdate, globalFavori
             </div>
         </div>
     );
+    
 };
 
 export default MainMoviesPanel;
