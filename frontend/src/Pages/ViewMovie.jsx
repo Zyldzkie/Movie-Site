@@ -222,9 +222,12 @@ const ViewMovie = () => {
       )}
 
       <div className="movie-container">
-        <div className="movie-cardto" style={{
-          backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url(${movieDetails.backdrop_path})`
-        }}>
+        <div 
+          className="movie-cardto" 
+          style={{
+            backgroundImage: `url(${movieDetails.backdrop_path})`
+          }}
+        >
           <div className="poster-container">
             <img src={movieDetails.poster_path} alt={movieDetails.title} className="poster-img" />
           </div>

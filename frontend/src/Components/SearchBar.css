@@ -44,7 +44,8 @@
 /* Search button styles */
 .search-button {
   background-color: #FFB2CF;
-  color: white;
+  color: black;
+  font-weight: bold;
   font-size: 1rem;
   padding: 10px 15px;
   border: 2px solid #FFB2CF;
